@@ -1,13 +1,13 @@
 import { Route, Switch } from 'react-router';
 import './App.css';
 import HomePage from './pages/HomePage';
-import ShowPage from './pages/ShowPage';
+import ShopPage from './pages/ShopPage';
 
 const App: React.FC = () => (
   <div>
     <Switch>
       <Route exact path="/" component={HomePage} />
-      <Route path="/shop" component={ShowPage} />
+      <Route path="/shop" component={ShopPage} />
     </Switch>
   </div>
 );
