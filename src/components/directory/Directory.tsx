@@ -1,7 +1,7 @@
 import './directory.scss';
 import React from 'react';
 import MenuItem from '../menu-item/MenuItem';
-import { DIRECTORY } from '../../constants/directory';
+import { DIRECTORY } from '../../constants';
 
 interface DirectoryState {
   sections: {
