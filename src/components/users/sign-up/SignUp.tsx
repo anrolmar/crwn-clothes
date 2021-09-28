@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FormEvent } from 'react';
 import { auth, createUserProfileDocument } from '../../../firebase/firebase';
-import { Button, FormInput } from '../../forms';
+import { Button, FormInput } from '../../../shared/components/forms';
 import './sign-up.scss';
 
 interface SignUpState {

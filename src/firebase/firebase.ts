@@ -1,7 +1,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
-import AuthUser from '../shared/types/AuthUser';
+import { AuthUser } from '../shared/types';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyC3_5-7qSZL6-hQokGZ9f6Xdlndlvm8HLk',

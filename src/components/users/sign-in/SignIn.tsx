@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FormEvent } from 'react';
 import { auth, signInWithGoogle } from '../../../firebase/firebase';
-import { FormInput, Button } from '../../forms';
+import { FormInput, Button } from '../../../shared/components/forms';
 import './sign-in.scss';
 
 interface SignInState {

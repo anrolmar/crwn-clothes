@@ -2,7 +2,9 @@ import './header.scss';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { Link } from 'react-router-dom';
 import { auth } from '../../firebase/firebase';
-import AuthUser from '../../shared/types/AuthUser';
+import { AuthUser } from '../../shared/types';
+import { connect } from 'react-redux';
+import { RootState } from '../../redux/reducers';
 
 interface HeaderProps {
   currentUser: AuthUser | null;
@@ -35,4 +37,8 @@ const Header: React.FC<HeaderProps> = ({ currentUser }) => {
   );
 };
 
-export default Header;
+const mapStateToProps = (state: RootState) => ({
+  currentUser: state.users.currentUser,
+});
+
+export default connect(mapStateToProps)(Header);
