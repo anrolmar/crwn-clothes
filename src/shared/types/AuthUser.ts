@@ -1,6 +1,6 @@
 export default interface AuthUser {
-  id: string | undefined;
-  displayName: string | undefined;
-  email: string | undefined;
+  uid: string | undefined;
+  displayName?: string;
+  email?: string;
   createdAt?: Date;
 }

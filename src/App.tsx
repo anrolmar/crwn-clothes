@@ -4,9 +4,10 @@ import Header from './components/header/Header';
 import { HomePage, ShopPage, SignInPage } from './pages';
 import { auth, createUserProfileDocument } from './firebase/firebase';
 import './App.css';
+import AuthUser from './shared/types/AuthUser';
 
 interface AppState {
-  currentUser: any | null;
+  currentUser: AuthUser | null;
 }
 class App extends React.Component<{}, AppState> {
   state = { currentUser: null };
@@ -15,18 +16,19 @@ class App extends React.Component<{}, AppState> {
   componentDidMount() {
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth, null);
-        userRef?.onSnapshot((snapShot) => {
+        const userSnapshot = await createUserProfileDocument(userAuth, null);
+        if (userSnapshot) {
           this.setState({
             currentUser: {
-              id: snapShot.id,
-              ...snapShot.data(),
+              uid: userSnapshot.id,
+              ...userSnapshot.data(),
             },
           });
-        });
+        }
       }
+
       this.setState({
-        currentUser: userAuth,
+        currentUser: userAuth as AuthUser,
       });
     });
   }

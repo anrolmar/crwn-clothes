@@ -1,6 +1,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
+import AuthUser from '../shared/types/AuthUser';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyC3_5-7qSZL6-hQokGZ9f6Xdlndlvm8HLk',
@@ -19,17 +20,29 @@ provider.setCustomParameters({
 });
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
-export const createUserProfileDocument = async (userAuth: any, additionalData: any) => {
+const authUserConverter = {
+  toFirestore(authUser: AuthUser): firebase.firestore.DocumentData {
+    return authUser;
+  },
+  fromFirestore(
+    snapshot: firebase.firestore.QueryDocumentSnapshot,
+    options: firebase.firestore.SnapshotOptions,
+  ): AuthUser {
+    return snapshot.data(options) as AuthUser;
+  },
+};
+export const createUserProfileDocument = async (userAuth: firebase.User, additionalData: any) => {
   if (!userAuth) return;
 
   const userRef = fireStore.doc(`users/${userAuth.uid}`);
-  const snapShot = await userRef.get();
+  const snapShot = await userRef.withConverter(authUserConverter).get();
+
   if (!snapShot.exists) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
 
     try {
-      await userRef.set({
+      await userRef.withConverter(authUserConverter).set({
         displayName,
         email,
         createdAt,
@@ -40,7 +53,7 @@ export const createUserProfileDocument = async (userAuth: any, additionalData: a
     }
   }
 
-  return userRef;
+  return snapShot;
 };
 
 export const auth = firebase.auth();
