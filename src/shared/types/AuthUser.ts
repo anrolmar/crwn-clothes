@@ -1,8 +1,6 @@
-type AuthUser = {
+export default interface AuthUser {
   uid: string | undefined;
-  displayName?: string;
-  email?: string;
+  displayName?: string | undefined;
+  email?: string | undefined;
   createdAt?: Date;
-};
-
-export default AuthUser;
+}
