@@ -1,11 +1,10 @@
 import './header.scss';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { Link } from 'react-router-dom';
-import firebase from 'firebase/compat/app';
 import { auth } from '../../firebase/firebase';
 
 interface HeaderProps {
-  currentUser: firebase.User | null;
+  currentUser: any | null;
 }
 
 const Header: React.FC<HeaderProps> = ({ currentUser }) => {
