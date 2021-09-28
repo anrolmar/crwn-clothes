@@ -1,5 +1,6 @@
 import { AuthUser } from '../../shared/types';
-import { Action, ActionType } from '../actions';
+import { UserAction } from './user.actions';
+import { UserActionType } from './user.action-types';
 
 interface UserState {
   currentUser: AuthUser | null;
@@ -9,9 +10,9 @@ const INITIAL_STATE: UserState = {
   currentUser: null,
 };
 
-const userReducer = (state: UserState = INITIAL_STATE, action: Action) => {
+const userReducer = (state: UserState = INITIAL_STATE, action: UserAction) => {
   switch (action.type) {
-    case ActionType.SET_CURRENT_USER:
+    case UserActionType.SET_CURRENT_USER:
       return {
         ...state,
         currentUser: action.payload,

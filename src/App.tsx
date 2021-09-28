@@ -1,17 +1,18 @@
 import './App.css';
 
 import React from 'react';
-import { Route, Switch } from 'react-router';
+import { Redirect, Route, Switch } from 'react-router';
 import Header from './components/header/Header';
 import { HomePage, LoginPage, ShopPage } from './pages';
 import { auth, createUserProfileDocument } from './firebase/firebase';
-import { AuthUser } from './shared/types';
 import { connect } from 'react-redux';
-import { Action } from './redux/actions/actions';
-import { setCurrentUser } from './redux/actions/user.actions';
+import { setCurrentUser } from './redux/users/user.action-creators';
 import { Dispatch } from 'redux';
+import { AuthUser } from './shared/types';
+import { RootState, Action } from './redux';
 
 interface AppProps {
+  currentUser: AuthUser | null;
   setCurrentUser: (authUser: AuthUser | null) => void;
 }
 
@@ -50,15 +51,19 @@ class App extends React.Component<AppProps, AppState> {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
-          <Route path="/sign-in" component={LoginPage} />
+          <Route exact path="/sign-in" render={() => (this.props.currentUser ? <Redirect to="/" /> : <LoginPage />)} />
         </Switch>
       </div>
     );
   }
 }
 
+const mapStateToProps = ({ users }: RootState) => ({
+  currentUser: users.currentUser,
+});
+
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   setCurrentUser: (user: AuthUser | null) => dispatch(setCurrentUser(user)),
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

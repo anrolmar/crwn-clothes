@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
-import userReducer from './user.reducer';
+import { UserAction } from './users/user.actions';
+import userReducer from './users/user.reducer';
 
 const reducers = combineReducers({
   users: userReducer,
@@ -8,3 +9,4 @@ const reducers = combineReducers({
 export default reducers;
 
 export type RootState = ReturnType<typeof reducers>;
+export type Action = UserAction;

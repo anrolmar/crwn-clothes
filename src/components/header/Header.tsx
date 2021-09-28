@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { auth } from '../../firebase/firebase';
 import { AuthUser } from '../../shared/types';
 import { connect } from 'react-redux';
-import { RootState } from '../../redux/reducers';
+import { RootState } from '../../redux';
 
 interface HeaderProps {
   currentUser: AuthUser | null;
