@@ -9,7 +9,8 @@ import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/users/user.action-creators';
 import { Dispatch } from 'redux';
 import { AuthUser } from './shared/types';
-import { RootState, Action } from './redux';
+import { RootState } from './redux';
+import { UserAction } from './redux/users/user.actions';
 
 interface AppProps {
   currentUser: AuthUser | null;
@@ -19,6 +20,7 @@ interface AppProps {
 interface AppState {
   currentUser: AuthUser | null;
 }
+
 class App extends React.Component<AppProps, AppState> {
   unsubscribeFromAuth = () => {};
 
@@ -58,11 +60,11 @@ class App extends React.Component<AppProps, AppState> {
   }
 }
 
-const mapStateToProps = ({ users }: RootState) => ({
-  currentUser: users.currentUser,
+const mapStateToProps = ({ user }: RootState) => ({
+  currentUser: user.currentUser,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<UserAction>) => ({
   setCurrentUser: (user: AuthUser | null) => dispatch(setCurrentUser(user)),
 });
 
