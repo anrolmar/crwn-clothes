@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { ICartItem } from '../../../shared/types';
 import { RootState } from '../../../redux';
 import CartItem from '../cart-item/CartItem';
+import { selectCartItems } from '../../../redux/cart/cart.selector';
 
 interface CartDropdownProps {
   items: ICartItem[];
@@ -23,7 +24,7 @@ const CartDropdown: React.FC<CartDropdownProps> = ({ items }) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  items: state.cart.items,
+  items: selectCartItems(state),
 });
 
 export default connect(mapStateToProps)(CartDropdown);
