@@ -7,6 +7,9 @@ import { connect } from 'react-redux';
 import { RootState } from '../../redux';
 import CartIcon from '../cart/cart-icon/CartIcon';
 import CartDropdown from '../cart/cart-dropdown/CartDropdown';
+import { selectCurrentUser } from '../../redux/users/user.selectors';
+import { selectCartHidden } from '../../redux/cart/cart.selectors';
+import { createStructuredSelector } from 'reselect';
 
 interface HeaderProps {
   currentUser: IAuthUser | null;
@@ -42,9 +45,14 @@ const Header: React.FC<HeaderProps> = ({ currentUser, hidden }) => {
   );
 };
 
-const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }: RootState) => ({
-  currentUser,
-  hidden,
+interface HeaderSelectorProps {
+  currentUser: IAuthUser | null;
+  hidden: boolean;
+}
+
+const mapStateToProps = createStructuredSelector<RootState, HeaderSelectorProps>({
+  currentUser: selectCurrentUser,
+  hidden: selectCartHidden,
 });
 
 export default connect(mapStateToProps)(Header);
