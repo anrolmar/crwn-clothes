@@ -1,7 +1,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
-import { AuthUser } from '../shared/types';
+import { IAuthUser } from '../shared/types';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyC3_5-7qSZL6-hQokGZ9f6Xdlndlvm8HLk',
@@ -21,14 +21,14 @@ provider.setCustomParameters({
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
 const authUserConverter = {
-  toFirestore(authUser: AuthUser): firebase.firestore.DocumentData {
+  toFirestore(authUser: IAuthUser): firebase.firestore.DocumentData {
     return authUser;
   },
   fromFirestore(
     snapshot: firebase.firestore.QueryDocumentSnapshot,
     options: firebase.firestore.SnapshotOptions,
-  ): AuthUser {
-    return snapshot.data(options) as AuthUser;
+  ): IAuthUser {
+    return snapshot.data(options) as IAuthUser;
   },
 };
 export const createUserProfileDocument = async (userAuth: firebase.User, additionalData: any) => {

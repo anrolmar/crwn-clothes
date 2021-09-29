@@ -1,9 +1,9 @@
-import { AuthUser } from '../../shared/types';
+import { IAuthUser } from '../../shared/types';
 import { UserAction } from './user.actions';
 import { UserActionType } from './user.action-types';
 
 interface UserState {
-  currentUser: AuthUser | null;
+  currentUser: IAuthUser | null;
 }
 
 const INITIAL_STATE: UserState = {

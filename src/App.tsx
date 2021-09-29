@@ -8,17 +8,17 @@ import { auth, createUserProfileDocument } from './firebase/firebase';
 import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/users/user.action-creators';
 import { Dispatch } from 'redux';
-import { AuthUser } from './shared/types';
+import { IAuthUser } from './shared/types';
 import { RootState } from './redux';
 import { UserAction } from './redux/users/user.actions';
 
 interface AppProps {
-  currentUser: AuthUser | null;
-  setCurrentUser: (authUser: AuthUser | null) => void;
+  currentUser: IAuthUser | null;
+  setCurrentUser: (authUser: IAuthUser | null) => void;
 }
 
 interface AppState {
-  currentUser: AuthUser | null;
+  currentUser: IAuthUser | null;
 }
 
 class App extends React.Component<AppProps, AppState> {
@@ -65,7 +65,7 @@ const mapStateToProps = ({ user }: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<UserAction>) => ({
-  setCurrentUser: (user: AuthUser | null) => dispatch(setCurrentUser(user)),
+  setCurrentUser: (user: IAuthUser | null) => dispatch(setCurrentUser(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

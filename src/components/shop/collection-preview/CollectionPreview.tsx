@@ -1,11 +1,11 @@
 import './collection-preview.scss';
 import React from 'react';
 import CollectionItem from '../collection-item/CollectionItem';
-import { CartItem } from '../../shared/types';
+import { ICartItem } from '../../../shared/types';
 
 interface CollectionPreviewProps {
   title: string;
-  items: CartItem[];
+  items: ICartItem[];
 }
 
 class CollectionPreview extends React.Component<CollectionPreviewProps, {}> {

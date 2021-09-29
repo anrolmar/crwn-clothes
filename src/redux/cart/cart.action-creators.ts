@@ -1,8 +1,8 @@
 import { CartActionType } from './cart.action-types';
 import { ToggleCartHiddenAction, AddCartItemAction } from './cart.actions';
-import { CartItem } from '../../shared/types';
+import { ICartItem } from '../../shared/types';
 
-export const addItem = (item: CartItem): AddCartItemAction => {
+export const addItem = (item: ICartItem): AddCartItemAction => {
   return {
     type: CartActionType.ADD_ITEM,
     payload: item,

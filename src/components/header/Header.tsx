@@ -2,14 +2,14 @@ import './header.scss';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { Link } from 'react-router-dom';
 import { auth } from '../../firebase/firebase';
-import { AuthUser } from '../../shared/types';
+import { IAuthUser } from '../../shared/types';
 import { connect } from 'react-redux';
 import { RootState } from '../../redux';
 import CartIcon from '../cart/cart-icon/CartIcon';
 import CartDropdown from '../cart/cart-dropdown/CartDropdown';
 
 interface HeaderProps {
-  currentUser: AuthUser | null;
+  currentUser: IAuthUser | null;
   hidden: boolean;
 }
 

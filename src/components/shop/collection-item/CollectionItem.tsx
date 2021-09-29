@@ -1,14 +1,14 @@
-import { Button } from '../../shared/components/forms';
+import { Button } from '../../../shared/components/forms';
 import './collection-item.scss';
 import { connect } from 'react-redux';
-import { addItem } from '../../redux/cart/cart.action-creators';
+import { addItem } from '../../../redux/cart/cart.action-creators';
 import { Dispatch } from 'redux';
-import { CartAction } from '../../redux/cart/cart.actions';
-import { CartItem } from '../../shared/types/CartItem';
+import { CartAction } from '../../../redux/cart/cart.actions';
+import { ICartItem } from '../../../shared/types/CartItem';
 
 interface CollectionItemProps {
-  item: CartItem;
-  addItem: (item: CartItem) => void;
+  item: ICartItem;
+  addItem: (item: ICartItem) => void;
 }
 
 const CollectionItem: React.FC<CollectionItemProps> = ({ item, addItem }) => {
@@ -29,7 +29,7 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ item, addItem }) => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<CartAction>) => ({
-  addItem: (item: CartItem) => dispatch(addItem(item)),
+  addItem: (item: ICartItem) => dispatch(addItem(item)),
 });
 
 export default connect(null, mapDispatchToProps)(CollectionItem);

@@ -1,9 +1,9 @@
-import { AuthUser } from '../../shared/types';
+import { IAuthUser } from '../../shared/types';
 import { UserActionType } from './user.action-types';
 
 export interface SetCurrentUserAction {
   type: UserActionType.SET_CURRENT_USER;
-  payload: AuthUser | null;
+  payload: IAuthUser | null;
 }
 
 export type UserAction = SetCurrentUserAction;

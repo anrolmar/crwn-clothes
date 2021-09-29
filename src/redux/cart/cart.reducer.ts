@@ -1,11 +1,11 @@
 import { CartActionType } from './cart.action-types';
 import { CartAction } from './cart.actions';
-import { CartItem } from '../../shared/types';
+import { ICartItem } from '../../shared/types';
 import { addItemToCart } from './cart.utils';
 
 interface CartState {
   hidden: boolean;
-  items: CartItem[];
+  items: ICartItem[];
 }
 
 const INITIAL_STATE: CartState = {

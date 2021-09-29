@@ -1,6 +1,6 @@
-import { CartItem } from '../../shared/types';
+import { ICartItem } from '../../shared/types';
 
-export const addItemToCart = (cartItems: CartItem[], cartItemToAdd: CartItem) => {
+export const addItemToCart = (cartItems: ICartItem[], cartItemToAdd: ICartItem) => {
   const existingCartItem = cartItems.find((cartItem) => cartItem.id === cartItemToAdd.id);
 
   if (existingCartItem) {
