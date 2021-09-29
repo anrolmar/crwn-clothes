@@ -1,2 +1,2 @@
 export * from './directory';
-export * from './shop-data';
+export { default as SHOP_DATA } from './shop-data';
