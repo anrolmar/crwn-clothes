@@ -1,5 +1,5 @@
 import { CartActionType } from './cart.action-types';
-import { ICartItem } from '../../shared/types';
+import { ICartItem } from '../../shared/models';
 
 export interface AddCartItemAction {
   type: CartActionType.ADD_ITEM;

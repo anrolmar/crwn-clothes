@@ -1,15 +1,17 @@
 import './cart-dropdown.scss';
-import { Button } from '../../../shared/components/forms';
-import { connect } from 'react-redux';
-import { ICartItem } from '../../../shared/types';
-import { RootState } from '../../../redux';
-import CartItem from '../cart-item/CartItem';
-import { selectCartItems } from '../../../redux/cart/cart.selectors';
-import { createStructuredSelector } from 'reselect';
+
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { toggleCartHidden } from '../../../redux/cart/cart.action-creators';
-import { Dispatch } from 'react';
+
+import { Button } from '../../../shared/components/forms';
 import { CartAction } from '../../../redux/cart/cart.actions';
+import CartItem from '../cart-item/CartItem';
+import { Dispatch } from 'react';
+import { ICartItem } from '../../../shared/models';
+import { RootState } from '../../../redux';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectCartItems } from '../../../redux/cart/cart.selectors';
+import { toggleCartHidden } from '../../../redux/cart/cart.action-creators';
 
 interface CartDropdownProps {
   items: ICartItem[];

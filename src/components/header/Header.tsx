@@ -1,15 +1,16 @@
 import './header.scss';
-import { ReactComponent as Logo } from '../../assets/crown.svg';
-import { Link } from 'react-router-dom';
-import { auth } from '../../firebase/firebase';
-import { IAuthUser } from '../../shared/types';
-import { connect } from 'react-redux';
-import { RootState } from '../../redux';
-import CartIcon from '../cart/cart-icon/CartIcon';
+
 import CartDropdown from '../cart/cart-dropdown/CartDropdown';
-import { selectCurrentUser } from '../../redux/users/user.selectors';
-import { selectCartHidden } from '../../redux/cart/cart.selectors';
+import CartIcon from '../cart/cart-icon/CartIcon';
+import { IAuthUser } from '../../shared/models';
+import { Link } from 'react-router-dom';
+import { ReactComponent as Logo } from '../../assets/crown.svg';
+import { RootState } from '../../redux';
+import { auth } from '../../firebase/firebase';
+import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { selectCartHidden } from '../../redux/cart/cart.selectors';
+import { selectCurrentUser } from '../../redux/users/user.selectors';
 
 interface HeaderProps {
   currentUser: IAuthUser | null;

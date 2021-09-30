@@ -1,4 +1,4 @@
-import { ICartItem } from '../../shared/types';
+import { ICartItem } from '../../shared/models';
 
 export const addItemToCart = (cartItems: ICartItem[], cartItemToAdd: ICartItem) => {
   const existingCartItem = cartItems.find((cartItem) => cartItem.id === cartItemToAdd.id);

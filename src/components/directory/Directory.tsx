@@ -1,30 +1,45 @@
 import './directory.scss';
-import React from 'react';
+
+import { Dispatch, useEffect } from 'react';
+
+import { DirectoryAction } from '../../redux/directory/directory.actions';
+import { ISection } from '../../shared/models';
 import MenuItem from '../menu-item/MenuItem';
-import { DIRECTORY } from '../../constants';
+import { RootState } from '../../redux';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { fetchDirectorySections } from '../../redux/directory/directory.action-creators';
+import { selectDirectorySections } from '../../redux/directory/directory.selectors';
 
-interface DirectoryState {
-  sections: {
-    id: number;
-    imageUrl: string;
-    linkUrl: string;
-    size?: string;
-    title: string;
-  }[];
+interface DirectoryProps {
+  sections?: ISection[];
+  fetchDirectorySections?: () => void;
 }
 
-class Directory extends React.Component<{}, DirectoryState> {
-  state: DirectoryState = DIRECTORY;
+const Directory: React.FC<DirectoryProps> = ({ sections, fetchDirectorySections }) => {
+  useEffect(() => {
+    fetchDirectorySections!();
+  }, [fetchDirectorySections]);
 
-  renderMenuList() {
-    const { sections } = this.state;
+  return (
+    <div className="directory-menu">
+      {sections!.map(({ id, ...sectionProps }) => (
+        <MenuItem key={id} {...sectionProps} />
+      ))}
+    </div>
+  );
+};
 
-    return sections.map(({ id, ...sectionProps }) => <MenuItem key={id} {...sectionProps} />);
-  }
-
-  render() {
-    return <div className="directory-menu">{this.renderMenuList()}</div>;
-  }
+interface DirectorySelectorProps {
+  sections: ISection[];
 }
 
-export default Directory;
+const mapStateToProps = createStructuredSelector<RootState, DirectoryProps, DirectorySelectorProps>({
+  sections: selectDirectorySections,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch<DirectoryAction>) => ({
+  fetchDirectorySections: () => dispatch(fetchDirectorySections()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Directory);

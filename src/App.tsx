@@ -1,18 +1,19 @@
 import './App.css';
 
-import React from 'react';
-import { Redirect, Route, Switch } from 'react-router';
-import Header from './components/header/Header';
 import { CheckOutPage, HomePage, LoginPage, ShopPage } from './pages';
+import { Redirect, Route, Switch } from 'react-router';
 import { auth, createUserProfileDocument } from './firebase/firebase';
-import { connect } from 'react-redux';
-import { setCurrentUser } from './redux/users/user.action-creators';
+
 import { Dispatch } from 'redux';
-import { IAuthUser } from './shared/types';
+import Header from './components/header/Header';
+import { IAuthUser } from './shared/models';
+import React from 'react';
 import { RootState } from './redux';
 import { UserAction } from './redux/users/user.actions';
-import { selectCurrentUser } from './redux/users/user.selectors';
+import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { selectCurrentUser } from './redux/users/user.selectors';
+import { setCurrentUser } from './redux/users/user.action-creators';
 
 interface AppProps {
   currentUser: IAuthUser | null;

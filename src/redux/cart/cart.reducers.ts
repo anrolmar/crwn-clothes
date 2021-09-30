@@ -1,7 +1,8 @@
-import { CartActionType } from './cart.action-types';
-import { CartAction } from './cart.actions';
-import { ICartItem } from '../../shared/types';
 import { addItemToCart, removeItemFromCart } from './cart.utils';
+
+import { CartAction } from './cart.actions';
+import { CartActionType } from './cart.action-types';
+import { ICartItem } from '../../shared/models';
 
 interface CartState {
   hidden: boolean;

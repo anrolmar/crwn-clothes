@@ -1,9 +1,11 @@
 import './checkout-item.scss';
-import { connect } from 'react-redux';
-import { clearItemFromCart, addItem, removeItem } from '../../../redux/cart/cart.action-creators';
-import { Dispatch } from 'react';
+
+import { addItem, clearItemFromCart, removeItem } from '../../../redux/cart/cart.action-creators';
+
 import { CartAction } from '../../../redux/cart/cart.actions';
-import { ICartItem } from '../../../shared/types';
+import { Dispatch } from 'react';
+import { ICartItem } from '../../../shared/models';
+import { connect } from 'react-redux';
 
 interface CheckoutItemProps {
   item: ICartItem;

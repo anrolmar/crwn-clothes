@@ -1,10 +1,12 @@
 import './checkout.scss';
+
+import { selectCartItems, selectCartTotal } from '../../redux/cart/cart.selectors';
+
+import CheckoutItem from '../../components/cart/checkout-item/CheckoutItem';
+import { ICartItem } from '../../shared/models';
+import { RootState } from '../../redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { selectCartItems, selectCartTotal } from '../../redux/cart/cart.selectors';
-import { RootState } from '../../redux';
-import { ICartItem } from '../../shared/types';
-import CheckoutItem from '../../components/cart/checkout-item/CheckoutItem';
 
 interface CheckOutProps {
   cartItems: ICartItem[];

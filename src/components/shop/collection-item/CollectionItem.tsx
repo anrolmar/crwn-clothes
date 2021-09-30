@@ -1,10 +1,11 @@
-import { Button } from '../../../shared/components/forms';
 import './collection-item.scss';
-import { connect } from 'react-redux';
-import { addItem } from '../../../redux/cart/cart.action-creators';
-import { Dispatch } from 'redux';
+
+import { Button } from '../../../shared/components/forms';
 import { CartAction } from '../../../redux/cart/cart.actions';
-import { ICartItem } from '../../../shared/types/CartItem';
+import { Dispatch } from 'redux';
+import { ICartItem } from '../../../shared/models/Shop';
+import { addItem } from '../../../redux/cart/cart.action-creators';
+import { connect } from 'react-redux';
 
 interface CollectionItemProps {
   item: ICartItem;

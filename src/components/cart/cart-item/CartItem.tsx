@@ -1,5 +1,6 @@
 import './cart-item.scss';
-import { ICartItem } from '../../../shared/types';
+
+import { ICartItem } from '../../../shared/models';
 
 interface CartItemProps {
   item: ICartItem;

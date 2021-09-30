@@ -1,7 +1,8 @@
 import './collection-preview.scss';
-import React from 'react';
+
 import CollectionItem from '../collection-item/CollectionItem';
-import { ICartItem } from '../../../shared/types';
+import { ICartItem } from '../../../shared/models';
+import React from 'react';
 
 interface CollectionPreviewProps {
   title: string;

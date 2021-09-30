@@ -1,4 +1,4 @@
-import { IAuthUser } from '../../shared/types';
+import { IAuthUser } from '../../shared/models';
 import { SetCurrentUserAction } from './user.actions';
 import { UserActionType } from './user.action-types';
 

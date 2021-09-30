@@ -1,11 +1,12 @@
-import { CartActionType } from './cart.action-types';
 import {
-  ToggleCartHiddenAction,
   AddCartItemAction,
   ClearItemFromCartAction,
   RemoveItemCartAction,
+  ToggleCartHiddenAction,
 } from './cart.actions';
-import { ICartItem } from '../../shared/types';
+
+import { CartActionType } from './cart.action-types';
+import { ICartItem } from '../../shared/models';
 
 export const addItem = (item: ICartItem): AddCartItemAction => {
   return {
