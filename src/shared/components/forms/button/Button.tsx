@@ -8,7 +8,10 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button: React.FC<ButtonProps> = ({ children, isGoogleSignIn, inverted, ...otherProps }) => {
   return (
-    <button className={`inverted ? 'inverted' : ''} ${isGoogleSignIn ? 'google-sign-in' : ''} button`} {...otherProps}>
+    <button
+      className={`${inverted ? 'inverted' : ''} ${isGoogleSignIn ? 'google-sign-in' : ''} button`}
+      {...otherProps}
+    >
       {children}
     </button>
   );

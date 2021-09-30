@@ -1,4 +1,4 @@
-import { SignIn, SignUp } from '../components/users';
+import { SignIn, SignUp } from '../../components/users';
 
 import './login-page.scss';
 

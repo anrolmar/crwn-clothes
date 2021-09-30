@@ -1,7 +1,7 @@
 import { CartActionType } from './cart.action-types';
 import { CartAction } from './cart.actions';
 import { ICartItem } from '../../shared/types';
-import { addItemToCart } from './cart.utils';
+import { addItemToCart, removeItemFromCart } from './cart.utils';
 
 interface CartState {
   hidden: boolean;
@@ -19,6 +19,18 @@ const cartReducer = (state: CartState = INITIAL_STATE, action: CartAction): Cart
       return {
         ...state,
         items: addItemToCart(state.items, action.payload),
+      };
+
+    case CartActionType.CLEAR_ITEM_FROM_CART:
+      return {
+        ...state,
+        items: state.items.filter((item) => item.id !== action.payload.id),
+      };
+
+    case CartActionType.REMOVE_ITEM:
+      return {
+        ...state,
+        items: removeItemFromCart(state.items, action.payload),
       };
 
     case CartActionType.TOGGLE_CART_HIDDEN:

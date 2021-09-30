@@ -1,5 +1,5 @@
 import './home-page.scss';
-import Directory from '../components/directory/Directory';
+import Directory from '../../components/directory/Directory';
 
 const HomePage: React.FC = () => (
   <div className="homepage">
