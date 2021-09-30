@@ -1,8 +1,11 @@
-export interface ICollection {
+export interface ICollectionItem {
   id: number;
   title: string;
   routeName: string;
   items: ICartItem[];
+}
+export interface ICollection {
+  [key: string]: ICollectionItem;
 }
 
 export interface ICartItem {

@@ -3,10 +3,10 @@ import { CollectionActionTypes } from './collection.action-types';
 import { ICollection } from '../../shared/models';
 
 interface CollectionState {
-  collections: ICollection[];
+  collections: ICollection;
 }
 
-const INITIALIZE_STATE: CollectionState = { collections: [] };
+const INITIALIZE_STATE: CollectionState = { collections: {} };
 
 const collectionReducer = (state: CollectionState = INITIALIZE_STATE, action: CollectionAction): CollectionState => {
   switch (action.type) {

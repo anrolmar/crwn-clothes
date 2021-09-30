@@ -12,18 +12,18 @@ import { fetchCollectionItems } from '../../../redux/collection/collection.actio
 import { selectCollections } from '../../../redux/collection/collection.selectors';
 
 interface CollectionOverviewProps {
-  collections?: ICollection[];
+  collection: ICollection;
   fetchShopCollections?: () => void;
 }
 
-const CollectionOverview: React.FC<CollectionOverviewProps> = ({ collections, fetchShopCollections }) => {
+const CollectionOverview: React.FC<CollectionOverviewProps> = ({ collection, fetchShopCollections }) => {
   useEffect(() => {
     fetchShopCollections!();
   }, [fetchShopCollections]);
 
   const renderCollections = () => {
-    return collections!.map(({ id, ...otherCollectionProps }) => (
-      <CollectionPreview key={id} {...otherCollectionProps} />
+    return Object.values(collection).map((collectionItem) => (
+      <CollectionPreview key={collectionItem.id} {...collectionItem} />
     ));
   };
 
@@ -31,11 +31,11 @@ const CollectionOverview: React.FC<CollectionOverviewProps> = ({ collections, fe
 };
 
 interface CollectionOverviewSelectorProps {
-  collections: ICollection[];
+  collection: ICollection;
 }
 
 const mapStateToProps = createStructuredSelector<RootState, CollectionOverviewProps, CollectionOverviewSelectorProps>({
-  collections: selectCollections,
+  collection: selectCollections,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<CollectionAction>) => ({

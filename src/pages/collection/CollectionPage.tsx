@@ -1,13 +1,14 @@
 import './collection-page.scss';
 
-import { ICollection } from '../../shared/models/Shop';
+import CollectionItem from '../../components/shop/collection-item/CollectionItem';
+import { ICollectionItem } from '../../shared/models';
 import { RootState } from '../../redux/index';
 import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { selectCollection } from '../../redux/collection/collection.selectors';
 
 interface CollectionOwnProps {
-  collection: ICollection | undefined;
+  collection: ICollectionItem;
 }
 
 interface CollectionMatchParams {
@@ -16,10 +17,17 @@ interface CollectionMatchParams {
 
 type CollectionPageProps = CollectionOwnProps & RouteComponentProps<CollectionMatchParams>;
 
-const CollectionPage: React.FC<CollectionPageProps> = () => {
+const CollectionPage: React.FC<CollectionPageProps> = ({ collection }) => {
+  const { title, items } = collection;
+
+  const renderItems = () => {
+    return items.map((item) => <CollectionItem key={item.id} item={item} />);
+  };
+
   return (
-    <div className="category">
-      <h2>Collection Page</h2>
+    <div className="collection-page">
+      <h2 className="title">{title}</h2>
+      <div className="items">{renderItems()}</div>
     </div>
   );
 };
