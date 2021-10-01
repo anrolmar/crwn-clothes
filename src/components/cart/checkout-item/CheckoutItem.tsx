@@ -3,7 +3,7 @@ import './checkout-item.scss';
 import { addItem, clearItemFromCart, removeItem } from '../../../redux/cart/cart.action-creators';
 
 import { CartAction } from '../../../redux/cart/cart.actions';
-import { Dispatch } from 'react';
+import { Dispatch } from 'redux';
 import { ICartItem } from '../../../shared/models';
 import { connect } from 'react-redux';
 

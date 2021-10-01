@@ -1,8 +1,7 @@
 import './directory.scss';
 
-import { Dispatch, useEffect } from 'react';
-
 import { DirectoryAction } from '../../redux/directory/directory.actions';
+import { Dispatch } from 'redux';
 import { ISection } from '../../shared/models';
 import MenuItem from '../menu-item/MenuItem';
 import { RootState } from '../../redux';
@@ -10,6 +9,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { fetchDirectorySections } from '../../redux/directory/directory.action-creators';
 import { selectDirectorySections } from '../../redux/directory/directory.selectors';
+import { useEffect } from 'react';
 
 interface DirectoryProps {
   sections?: ISection[];

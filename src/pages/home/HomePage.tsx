@@ -1,10 +1,30 @@
 import './home-page.scss';
+
+import { CollectionAction } from '../../redux/collection/collection.actions';
 import Directory from '../../components/directory/Directory';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import { fetchCollectionItems } from '../../redux/collection/collection.action-creators';
+import { useEffect } from 'react';
 
-const HomePage: React.FC = () => (
-  <div className="homepage">
-    <Directory />
-  </div>
-);
+interface HomePageOwnProps {
+  fetchShopCollections?: () => void;
+}
 
-export default HomePage;
+const HomePage: React.FC<HomePageOwnProps> = ({ fetchShopCollections }) => {
+  useEffect(() => {
+    fetchShopCollections!();
+  }, [fetchShopCollections]);
+
+  return (
+    <div className="homepage">
+      <Directory />
+    </div>
+  );
+};
+
+const mapDispatchToProps = (dispatch: Dispatch<CollectionAction>) => ({
+  fetchShopCollections: () => dispatch(fetchCollectionItems()),
+});
+
+export default connect(null, mapDispatchToProps)(HomePage);

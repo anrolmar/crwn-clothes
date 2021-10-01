@@ -5,7 +5,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Button } from '../../../shared/components/forms';
 import { CartAction } from '../../../redux/cart/cart.actions';
 import CartItem from '../cart-item/CartItem';
-import { Dispatch } from 'react';
+import { Dispatch } from 'redux';
 import { ICartItem } from '../../../shared/models';
 import { RootState } from '../../../redux';
 import { connect } from 'react-redux';
