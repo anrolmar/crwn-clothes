@@ -1,8 +1,7 @@
-import './home-page.scss';
-
 import { CollectionAction } from '../../redux/collection/collection.actions';
 import Directory from '../../components/directory/Directory';
 import { Dispatch } from 'redux';
+import { HomePageContainer } from './homepage.styles';
 import { connect } from 'react-redux';
 import { fetchCollectionItems } from '../../redux/collection/collection.action-creators';
 import { useEffect } from 'react';
@@ -17,9 +16,9 @@ const HomePage: React.FC<HomePageOwnProps> = ({ fetchShopCollections }) => {
   }, [fetchShopCollections]);
 
   return (
-    <div className="homepage">
+    <HomePageContainer>
       <Directory />
-    </div>
+    </HomePageContainer>
   );
 };
 

@@ -1,20 +1,13 @@
-import './button.scss';
+import { ButtonContainer } from './button.styles';
 import { ButtonHTMLAttributes } from 'react';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   inverted?: boolean;
   isGoogleSignIn?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({ children, isGoogleSignIn, inverted, ...otherProps }) => {
-  return (
-    <button
-      className={`${inverted ? 'inverted' : ''} ${isGoogleSignIn ? 'google-sign-in' : ''} button`}
-      {...otherProps}
-    >
-      {children}
-    </button>
-  );
+const Button: React.FC<ButtonProps> = ({ children, ...otherProps }) => {
+  return <ButtonContainer {...otherProps}>{children}</ButtonContainer>;
 };
 
 export default Button;
