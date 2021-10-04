@@ -12,7 +12,6 @@ const INITIAL_STATE: DirectoryState = { sections: [] };
 const directoryReducer = (state: DirectoryState = INITIAL_STATE, action: DirectoryAction): DirectoryState => {
   switch (action.type) {
     case DirectoryActionTypes.FETCH_DIRECTORY:
-      console.log('Fetch Directory...');
       return {
         ...state,
         sections: action.payload,

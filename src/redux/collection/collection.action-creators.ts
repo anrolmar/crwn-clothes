@@ -1,10 +1,15 @@
+import { convertCollectionsSnapshotToMap, fireStore } from '../../firebase/firebase';
+
 import { CollectionActionTypes } from './collection.action-types';
 import { FetchCollectionItemsAction } from './collection.actions';
-import SHOP_DATA from '../../constants/shop-data';
 
-export const fetchCollectionItems = (): FetchCollectionItemsAction => {
+export const fetchCollectionItems = async (): Promise<FetchCollectionItemsAction> => {
+  const collectionRef = fireStore.collection('collections');
+  const snapshot = await collectionRef.get();
+
+  const collectionMap = convertCollectionsSnapshotToMap(snapshot);
   return {
     type: CollectionActionTypes.FETCH_COLLECTION_ITEMS,
-    payload: SHOP_DATA,
+    payload: collectionMap,
   };
 };
