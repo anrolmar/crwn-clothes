@@ -1,7 +1,7 @@
-import React, { ChangeEvent, FormEvent } from 'react';
-import { auth, createUserProfileDocument } from '../../../firebase/firebase';
 import { Button, FormInput } from '../../../shared/components/forms';
-import './sign-up.scss';
+import React, { ChangeEvent, FormEvent } from 'react';
+import { SignUpContainer, SignUpTitle } from './sign-up.styles';
+import { auth, createUserProfileDocument } from '../../../firebase/firebase';
 
 interface SignUpState {
   confirmPassword: string;
@@ -48,10 +48,10 @@ class SignUp extends React.Component<{}, SignUpState> {
   render() {
     const { confirmPassword, displayName, email, password } = this.state;
     return (
-      <div className="sign-up">
-        <h2 className="title">I do not have an account</h2>
+      <SignUpContainer>
+        <SignUpTitle>I do not have an account</SignUpTitle>
         <span>Sign Up with your email and password</span>
-        <form className="sign-up-form" onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit}>
           <FormInput
             type="text"
             name="displayName"
@@ -79,7 +79,7 @@ class SignUp extends React.Component<{}, SignUpState> {
           />
           <Button type="submit">Sign Up</Button>
         </form>
-      </div>
+      </SignUpContainer>
     );
   }
 }

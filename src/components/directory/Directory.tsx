@@ -1,6 +1,5 @@
-import './directory.scss';
-
 import { DirectoryAction } from '../../redux/directory/directory.actions';
+import { DirectoryMenuContainer } from './directory.styles';
 import { Dispatch } from 'redux';
 import { ISection } from '../../shared/models';
 import MenuItem from '../menu-item/MenuItem';
@@ -22,11 +21,11 @@ const Directory: React.FC<DirectoryProps> = ({ sections, fetchDirectorySections 
   }, [fetchDirectorySections]);
 
   return (
-    <div className="directory-menu">
+    <DirectoryMenuContainer>
       {sections!.map(({ id, ...sectionProps }) => (
         <MenuItem key={id} {...sectionProps} />
       ))}
-    </div>
+    </DirectoryMenuContainer>
   );
 };
 

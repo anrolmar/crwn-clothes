@@ -1,5 +1,4 @@
-import './collection-overview.scss';
-
+import { CollectionOverviewContainer } from './collections-overview.styles';
 import CollectionPreview from '../collection-preview/CollectionPreview';
 import { ICollectionItem } from '../../../shared/models';
 import { RootState } from '../../../redux';
@@ -7,26 +6,28 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCollectionsForPreview } from '../../../redux/collection/collection.selectors';
 
-interface CollectionOverviewProps {
+interface CollectionsOverviewProps {
   collectionItems: ICollectionItem[];
 }
 
-const CollectionOverview: React.FC<CollectionOverviewProps> = ({ collectionItems }) => {
+const CollectionsOverview: React.FC<CollectionsOverviewProps> = ({ collectionItems }) => {
   const renderCollections = () => {
     return collectionItems.map(({ id, ...otherCollectionProps }) => (
       <CollectionPreview key={id} {...otherCollectionProps} />
     ));
   };
 
-  return <div className="collection-overview">{renderCollections()}</div>;
+  return <CollectionOverviewContainer>{renderCollections()}</CollectionOverviewContainer>;
 };
 
-interface CollectionOverviewSelectorProps {
+interface CollectionsOverviewSelectorProps {
   collectionItems: ICollectionItem[];
 }
 
-const mapStateToProps = createStructuredSelector<RootState, CollectionOverviewProps, CollectionOverviewSelectorProps>({
-  collectionItems: selectCollectionsForPreview,
-});
+const mapStateToProps = createStructuredSelector<RootState, CollectionsOverviewProps, CollectionsOverviewSelectorProps>(
+  {
+    collectionItems: selectCollectionsForPreview,
+  },
+);
 
-export default connect(mapStateToProps)(CollectionOverview);
+export default connect(mapStateToProps)(CollectionsOverview);

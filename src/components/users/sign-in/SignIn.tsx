@@ -1,7 +1,7 @@
+import { Button, FormInput } from '../../../shared/components/forms';
+import { ButtonsContainer, SignInContainer } from './sign-in.styles';
 import React, { ChangeEvent, FormEvent } from 'react';
 import { auth, signInWithGoogle } from '../../../firebase/firebase';
-import { FormInput, Button } from '../../../shared/components/forms';
-import './sign-in.scss';
 
 interface SignInState {
   email: string;
@@ -40,7 +40,7 @@ class SignIn extends React.Component<{}, SignInState> {
   render() {
     const { email, password } = this.state;
     return (
-      <div className="sign-in">
+      <SignInContainer>
         <h2>I already have an account</h2>
         <span>Sign in with your email and password</span>
 
@@ -54,14 +54,14 @@ class SignIn extends React.Component<{}, SignInState> {
             handleChange={this.handleChange}
             required
           />
-          <div className="buttons">
+          <ButtonsContainer>
             <Button type="submit">Sign in</Button>
             <Button type="button" isGoogleSignIn onClick={signInWithGoogle}>
               Sign in with Google
             </Button>
-          </div>
+          </ButtonsContainer>
         </form>
-      </div>
+      </SignInContainer>
     );
   }
 }

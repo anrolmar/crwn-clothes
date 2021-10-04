@@ -1,8 +1,11 @@
-import './cart-dropdown.scss';
-
+import {
+  CartDropdownButton,
+  CartDropdownContainer,
+  CartItemsContainer,
+  EmptyMessageContainer,
+} from './cart-dropdown.styles';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-import { Button } from '../../../shared/components/forms';
 import { CartAction } from '../../../redux/cart/cart.actions';
 import CartItem from '../cart-item/CartItem';
 import { Dispatch } from 'redux';
@@ -20,23 +23,23 @@ interface CartDropdownProps {
 
 const CartDropdown: React.FC<CartDropdownProps & RouteComponentProps> = ({ items, history, dispatch }) => {
   return (
-    <div className="cart-dropdown">
-      <div className="cart-items">
+    <CartDropdownContainer>
+      <CartItemsContainer>
         {items.length ? (
           items.map((item) => <CartItem key={item.id} item={item} />)
         ) : (
-          <span className="empty-message">Your cart is empty</span>
+          <EmptyMessageContainer className="empty-message">Your cart is empty</EmptyMessageContainer>
         )}
-      </div>
-      <Button
+      </CartItemsContainer>
+      <CartDropdownButton
         onClick={() => {
           history.push('/checkout');
           dispatch(toggleCartHidden());
         }}
       >
         Go to Checkout
-      </Button>
-    </div>
+      </CartDropdownButton>
+    </CartDropdownContainer>
   );
 };
 

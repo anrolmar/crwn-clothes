@@ -1,13 +1,13 @@
 import { SignIn, SignUp } from '../../components/users';
 
-import './login-page.scss';
+import { LoginContainer } from './login-page.styles';
 
 const LoginPage: React.FC = () => {
   return (
-    <div className="login">
+    <LoginContainer>
       <SignIn />
       <SignUp />
-    </div>
+    </LoginContainer>
   );
 };
 

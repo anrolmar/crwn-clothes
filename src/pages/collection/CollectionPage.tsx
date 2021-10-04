@@ -1,4 +1,4 @@
-import './collection-page.scss';
+import { CollectionItemsContainer, CollectionPageContainer, CollectionTitle } from './collection-page.styles';
 
 import CollectionItem from '../../components/shop/collection-item/CollectionItem';
 import { ICollectionItem } from '../../shared/models';
@@ -25,10 +25,10 @@ const CollectionPage: React.FC<CollectionPageProps> = ({ collection }) => {
   };
 
   return (
-    <div className="collection-page">
-      <h2 className="title">{title}</h2>
-      <div className="items">{renderItems()}</div>
-    </div>
+    <CollectionPageContainer>
+      <CollectionTitle>{title}</CollectionTitle>
+      <CollectionItemsContainer>{renderItems()}</CollectionItemsContainer>
+    </CollectionPageContainer>
   );
 };
 

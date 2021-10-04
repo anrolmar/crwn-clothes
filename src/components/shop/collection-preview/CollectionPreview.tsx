@@ -1,4 +1,4 @@
-import './collection-preview.scss';
+import { CollectionPreviewContainer, PreviewContainer, TitleContainer } from './collection-preview.styles';
 
 import CollectionItem from '../collection-item/CollectionItem';
 import { ICartItem } from '../../../shared/models';
@@ -20,10 +20,10 @@ class CollectionPreview extends React.Component<CollectionPreviewProps, {}> {
     const { title } = this.props;
 
     return (
-      <div className="collection-preview">
-        <h1 className="title">{title.toUpperCase()}</h1>
-        <div className="preview">{this.renderItems()}</div>
-      </div>
+      <CollectionPreviewContainer>
+        <TitleContainer>{title.toUpperCase()}</TitleContainer>
+        <PreviewContainer>{this.renderItems()}</PreviewContainer>
+      </CollectionPreviewContainer>
     );
   }
 }
