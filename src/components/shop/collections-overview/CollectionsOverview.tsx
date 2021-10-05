@@ -12,7 +12,7 @@ interface CollectionsOverviewProps {
 
 const CollectionsOverview: React.FC<CollectionsOverviewProps> = ({ collectionItems }) => {
   const renderCollections = () => {
-    return collectionItems.map(({ id, ...otherCollectionProps }) => (
+    return collectionItems!.map(({ id, ...otherCollectionProps }) => (
       <CollectionPreview key={id} {...otherCollectionProps} />
     ));
   };
