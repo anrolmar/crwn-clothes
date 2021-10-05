@@ -7,7 +7,7 @@ import { createStructuredSelector } from 'reselect';
 import { selectCollectionsForPreview } from '../../../redux/collection/collection.selectors';
 
 interface CollectionsOverviewProps {
-  collectionItems: ICollectionItem[];
+  collectionItems?: ICollectionItem[];
 }
 
 const CollectionsOverview: React.FC<CollectionsOverviewProps> = ({ collectionItems }) => {

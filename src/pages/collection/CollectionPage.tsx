@@ -8,8 +8,17 @@ import { connect } from 'react-redux';
 import { selectCollection } from '../../redux/collection/collection.selectors';
 
 interface CollectionOwnProps {
-  collection: ICollectionItem;
+  collection?: ICollectionItem;
 }
+
+const defaultProps: CollectionOwnProps = {
+  collection: {
+    id: '',
+    title: '',
+    routeName: '',
+    items: [],
+  },
+};
 
 interface CollectionMatchParams {
   collectionId: string;
@@ -18,7 +27,7 @@ interface CollectionMatchParams {
 type CollectionPageProps = CollectionOwnProps & RouteComponentProps<CollectionMatchParams>;
 
 const CollectionPage: React.FC<CollectionPageProps> = ({ collection }) => {
-  const { title, items } = collection;
+  const { title, items } = collection!;
 
   const renderItems = () => {
     return items.map((item) => <CollectionItem key={item.id} item={item} />);
@@ -36,4 +45,5 @@ const mapStateToProps = (state: RootState, ownProps: CollectionPageProps) => ({
   collection: selectCollection(ownProps.match.params.collectionId)(state),
 });
 
+CollectionPage.defaultProps = defaultProps;
 export default connect(mapStateToProps)(CollectionPage);
