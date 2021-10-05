@@ -1,6 +1,6 @@
 import { SpinnerContainer, SpinnerOverlay } from './with-spinner.styles';
 
-interface WithSpinnerProps {
+export interface WithSpinnerProps {
   isLoading: boolean;
 }
 
