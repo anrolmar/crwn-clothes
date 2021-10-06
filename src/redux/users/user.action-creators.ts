@@ -1,13 +1,21 @@
 import {
+  CheckUserSessionAction,
   EmailSignInStartAction,
   GoogleSignInStartAction,
   SetCurrentUserAction,
   SignInFailureAction,
   SignInSuccessAction,
 } from './user.actions';
+import { SignOutFailureAction, SignOutStartAction, SignOutSuccessAction } from './user.actions';
 
 import { IAuthUser } from '../../shared/models';
 import { UserActionType } from './user.action-types';
+
+export const checkUserSession = (): CheckUserSessionAction => {
+  return {
+    type: UserActionType.CHECK_USER_SESSION,
+  };
+};
 
 export const emailSignInStart = (email: string, password: string): EmailSignInStartAction => {
   return {
@@ -43,5 +51,24 @@ export const signInSuccess = (user: IAuthUser): SignInSuccessAction => {
   return {
     type: UserActionType.SIGN_IN_SUCCESS,
     payload: user,
+  };
+};
+
+export const signOutFailure = (error: string): SignOutFailureAction => {
+  return {
+    type: UserActionType.SIGN_OUT_FAILURE,
+    payload: error,
+  };
+};
+
+export const signOutStart = (): SignOutStartAction => {
+  return {
+    type: UserActionType.SIGN_OUT_START,
+  };
+};
+
+export const signOutSuccess = (): SignOutSuccessAction => {
+  return {
+    type: UserActionType.SIGN_OUT_SUCCESS,
   };
 };

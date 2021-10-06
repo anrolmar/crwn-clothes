@@ -6,7 +6,7 @@ import { ICollection } from '../../shared/models';
 import { ShopActionTypes } from './shop.action-types';
 import firebase from 'firebase/compat/app';
 
-export function* fetchCollectionsAsync() {
+function* fetchCollectionsAsync() {
   yield console.log('I am fired');
 
   try {

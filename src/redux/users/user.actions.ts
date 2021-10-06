@@ -1,6 +1,10 @@
 import { IAuthUser } from '../../shared/models';
 import { UserActionType } from './user.action-types';
 
+export interface CheckUserSessionAction {
+  type: UserActionType.CHECK_USER_SESSION;
+}
+
 export interface EmailSignInStartAction {
   type: UserActionType.EMAIL_SIGN_IN_START;
   payload: {
@@ -28,9 +32,26 @@ export interface SignInSuccessAction {
   payload: IAuthUser;
 }
 
+export interface SignOutFailureAction {
+  type: UserActionType.SIGN_OUT_FAILURE;
+  payload: string;
+}
+
+export interface SignOutStartAction {
+  type: UserActionType.SIGN_OUT_START;
+}
+
+export interface SignOutSuccessAction {
+  type: UserActionType.SIGN_OUT_SUCCESS;
+}
+
 export type UserAction =
+  | CheckUserSessionAction
   | EmailSignInStartAction
   | GoogleSignInStartAction
   | SetCurrentUserAction
   | SignInFailureAction
-  | SignInSuccessAction;
+  | SignInSuccessAction
+  | SignOutFailureAction
+  | SignOutStartAction
+  | SignOutSuccessAction;
