@@ -1,4 +1,5 @@
-import { IAuthUser } from '../../shared/models';
+import { IAuthUser, IUserCredentials } from '../../shared/models';
+
 import { UserActionType } from './user.action-types';
 
 export interface CheckUserSessionAction {
@@ -32,6 +33,24 @@ export interface SignInSuccessAction {
   payload: IAuthUser;
 }
 
+export interface SignUpFailureAction {
+  type: UserActionType.SIGN_UP_FAILURE;
+  payload: string;
+}
+
+export interface SignUpStartAction {
+  type: UserActionType.SIGN_UP_START;
+  payload: IUserCredentials;
+}
+
+export interface SignUpSuccessAction {
+  type: UserActionType.SIGN_UP_SUCCESS;
+  payload: {
+    user: IAuthUser;
+    additionalData: any;
+  };
+}
+
 export interface SignOutFailureAction {
   type: UserActionType.SIGN_OUT_FAILURE;
   payload: string;
@@ -52,6 +71,9 @@ export type UserAction =
   | SetCurrentUserAction
   | SignInFailureAction
   | SignInSuccessAction
+  | SignUpFailureAction
+  | SignUpStartAction
+  | SignUpSuccessAction
   | SignOutFailureAction
   | SignOutStartAction
   | SignOutSuccessAction;

@@ -6,9 +6,17 @@ import {
   SignInFailureAction,
   SignInSuccessAction,
 } from './user.actions';
-import { SignOutFailureAction, SignOutStartAction, SignOutSuccessAction } from './user.actions';
+import {
+  SignOutFailureAction,
+  SignOutStartAction,
+  SignOutSuccessAction,
+  SignUpFailureAction,
+  SignUpStartAction,
+  SignUpSuccessAction,
+} from './user.actions';
 
 import { IAuthUser } from '../../shared/models';
+import { IUserCredentials } from '../../shared/models/AuthUser';
 import { UserActionType } from './user.action-types';
 
 export const checkUserSession = (): CheckUserSessionAction => {
@@ -51,6 +59,30 @@ export const signInSuccess = (user: IAuthUser): SignInSuccessAction => {
   return {
     type: UserActionType.SIGN_IN_SUCCESS,
     payload: user,
+  };
+};
+
+export const signUpFailure = (error: string): SignUpFailureAction => {
+  return {
+    type: UserActionType.SIGN_UP_FAILURE,
+    payload: error,
+  };
+};
+
+export const signUpStart = (userCredentials: IUserCredentials): SignUpStartAction => {
+  return {
+    type: UserActionType.SIGN_UP_START,
+    payload: userCredentials,
+  };
+};
+
+export const signUpSuccess = (user: IAuthUser, additionalData: any): SignUpSuccessAction => {
+  return {
+    type: UserActionType.SIGN_UP_SUCCESS,
+    payload: {
+      user,
+      additionalData,
+    },
   };
 };
 

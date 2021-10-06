@@ -1,5 +1,6 @@
 import {
   AddCartItemAction,
+  ClearCartAction,
   ClearItemFromCartAction,
   RemoveItemCartAction,
   ToggleCartHiddenAction,
@@ -12,6 +13,12 @@ export const addItem = (item: ICartItem): AddCartItemAction => {
   return {
     type: CartActionType.ADD_ITEM,
     payload: item,
+  };
+};
+
+export const clearCart = (): ClearCartAction => {
+  return {
+    type: CartActionType.CLEAR_CART,
   };
 };
 

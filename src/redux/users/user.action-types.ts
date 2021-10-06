@@ -6,10 +6,14 @@ export enum UserActionType {
 
   SET_CURRENT_USER = 'set-current-user',
 
-  SIGN_IN_SUCCESS = 'sign-in-success',
   SIGN_IN_FAILURE = 'sign-in-failure',
+  SIGN_IN_SUCCESS = 'sign-in-success',
 
+  SIGN_UP_FAILURE = 'sign-up-failure',
+  SIGN_UP_START = 'sign-up-start',
+  SIGN_UP_SUCCESS = 'sign-up-success',
+
+  SIGN_OUT_FAILURE = 'sign-out-failure',
   SIGN_OUT_START = 'sign-out-start',
   SIGN_OUT_SUCCESS = 'sign-out-success',
-  SIGN_OUT_FAILURE = 'sign-out-failure',
 }

@@ -1,8 +1,16 @@
 import { Button, FormInput } from '../../../shared/components/forms';
 import React, { ChangeEvent, FormEvent } from 'react';
 import { SignUpContainer, SignUpTitle } from './sign-up.styles';
-import { auth, createUserProfileDocument } from '../../../firebase/firebase';
 
+import { Dispatch } from 'redux';
+import { IUserCredentials } from '../../../shared/models/AuthUser';
+import { UserAction } from '../../../redux/users/user.actions';
+import { connect } from 'react-redux';
+import { signUpStart } from '../../../redux/users/user.action-creators';
+
+interface SignUpProps {
+  signUpStart: (userCredentials: IUserCredentials) => void;
+}
 interface SignUpState {
   confirmPassword: string;
   displayName: string;
@@ -17,27 +25,20 @@ const INITIALIZE_STATE: SignUpState = {
   password: '',
 };
 
-class SignUp extends React.Component<{}, SignUpState> {
+class SignUp extends React.Component<SignUpProps, SignUpState> {
   state = INITIALIZE_STATE;
 
   handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const { confirmPassword, displayName, email, password } = this.state;
+    const { signUpStart } = this.props;
+
     if (password !== confirmPassword) {
-      alert("passwords don't match");
+      alert('Password do not match');
       return;
     }
-
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(email, password);
-      if (user) await createUserProfileDocument(user, { displayName });
-      else console.error('There was a problem creating the user');
-
-      this.setState(INITIALIZE_STATE);
-    } catch (error) {
-      console.error(error);
-    }
+    signUpStart({ displayName, email, password });
   };
 
   handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -84,4 +85,8 @@ class SignUp extends React.Component<{}, SignUpState> {
   }
 }
 
-export default SignUp;
+const mapDispatchToProps = (dispatch: Dispatch<UserAction>) => ({
+  signUpStart: (userCredentials: IUserCredentials) => dispatch(signUpStart(userCredentials)),
+});
+
+export default connect(null, mapDispatchToProps)(SignUp);

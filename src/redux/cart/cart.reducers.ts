@@ -22,6 +22,12 @@ const cartReducer = (state: CartState = INITIAL_STATE, action: CartAction): Cart
         items: addItemToCart(state.items, action.payload),
       };
 
+    case CartActionType.CLEAR_CART:
+      return {
+        ...state,
+        items: [],
+      };
+
     case CartActionType.CLEAR_ITEM_FROM_CART:
       return {
         ...state,
