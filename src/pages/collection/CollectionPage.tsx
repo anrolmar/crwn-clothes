@@ -2,10 +2,10 @@ import { CollectionItemsContainer, CollectionPageContainer, CollectionTitle } fr
 
 import CollectionItem from '../../components/shop/collection-item/CollectionItem';
 import { ICollectionItem } from '../../shared/models';
-import { RootState } from '../../redux/index';
+import { RootState } from '../../redux/root.reducers';
 import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { selectCollection } from '../../redux/collection/collection.selectors';
+import { selectCollection } from '../../redux/shop/shop.selectors';
 
 interface CollectionOwnProps {
   collection?: ICollectionItem;

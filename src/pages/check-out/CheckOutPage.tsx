@@ -10,7 +10,7 @@ import { selectCartItems, selectCartTotal } from '../../redux/cart/cart.selector
 
 import CheckoutItem from '../../components/cart/checkout-item/CheckoutItem';
 import { ICartItem } from '../../shared/models';
-import { RootState } from '../../redux';
+import { RootState } from '../../redux/root.reducers';
 import StripeCheckoutButton from '../../components/cart/stripe-button/StripeButton';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';

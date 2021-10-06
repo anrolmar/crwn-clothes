@@ -2,22 +2,17 @@ import './App.css';
 
 import { CheckOutPage, HomePage, LoginPage, ShopPage } from './pages';
 import { Redirect, Route, Switch } from 'react-router';
-import { auth, createUserProfileDocument } from './firebase/firebase';
 
-import { Dispatch } from 'redux';
 import Header from './components/header/Header';
 import { IAuthUser } from './shared/models';
 import React from 'react';
-import { RootState } from './redux';
-import { UserAction } from './redux/users/user.actions';
+import { RootState } from './redux/root.reducers';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from './redux/users/user.selectors';
-import { setCurrentUser } from './redux/users/user.action-creators';
 
 interface AppProps {
   currentUser: IAuthUser | null;
-  setCurrentUser: (authUser: IAuthUser | null) => void;
 }
 
 interface AppState {
@@ -27,23 +22,7 @@ interface AppState {
 class App extends React.Component<AppProps, AppState> {
   unsubscribeFromAuth = () => {};
 
-  componentDidMount() {
-    const { setCurrentUser } = this.props;
-
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth, null);
-        userRef?.onSnapshot((snapShot) => {
-          setCurrentUser({
-            uid: snapShot.id,
-            ...snapShot.data(),
-          });
-        });
-      } else {
-        setCurrentUser(null);
-      }
-    });
-  }
+  componentDidMount() {}
 
   componentWillUnmount() {
     this.unsubscribeFromAuth();
@@ -71,8 +50,4 @@ const mapStateToProps = createStructuredSelector<RootState, AppSelectorProps>({
   currentUser: selectCurrentUser,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<UserAction>) => ({
-  setCurrentUser: (user: IAuthUser | null) => dispatch(setCurrentUser(user)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

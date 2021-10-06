@@ -10,7 +10,7 @@ import { CartAction } from '../../../redux/cart/cart.actions';
 import CartItem from '../cart-item/CartItem';
 import { Dispatch } from 'redux';
 import { ICartItem } from '../../../shared/models';
-import { RootState } from '../../../redux';
+import { RootState } from '../../../redux/root.reducers';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCartItems } from '../../../redux/cart/cart.selectors';

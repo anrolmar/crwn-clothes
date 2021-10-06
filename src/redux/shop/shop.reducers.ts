@@ -1,6 +1,6 @@
-import { CollectionAction } from './collection.actions';
-import { CollectionActionTypes } from './collection.action-types';
 import { ICollection } from '../../shared/models';
+import { ShopAction } from './shop.actions';
+import { ShopActionTypes } from './shop.action-types';
 
 interface CollectionState {
   collections: ICollection;
@@ -10,22 +10,22 @@ interface CollectionState {
 
 const INITIALIZE_STATE: CollectionState = { collections: {}, isFetching: false, errorMessage: undefined };
 
-const collectionReducer = (state: CollectionState = INITIALIZE_STATE, action: CollectionAction): CollectionState => {
+const collectionReducer = (state: CollectionState = INITIALIZE_STATE, action: ShopAction): CollectionState => {
   switch (action.type) {
-    case CollectionActionTypes.FETCH_COLLECTIONS_START:
+    case ShopActionTypes.FETCH_COLLECTIONS_START:
       return {
         ...state,
         isFetching: true,
       };
 
-    case CollectionActionTypes.FETCH_COLLECTIONS_SUCCESS:
+    case ShopActionTypes.FETCH_COLLECTIONS_SUCCESS:
       return {
         ...state,
         isFetching: false,
         collections: action.payload,
       };
 
-    case CollectionActionTypes.FETCH_COLLECTIONS_FAILURE:
+    case ShopActionTypes.FETCH_COLLECTIONS_FAILURE:
       return {
         ...state,
         isFetching: false,

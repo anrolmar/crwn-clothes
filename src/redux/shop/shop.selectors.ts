@@ -1,4 +1,4 @@
-import { RootState } from '../index';
+import { RootState } from '../root.reducers';
 import { createSelector } from 'reselect';
 import memoize from 'lodash.memoize';
 

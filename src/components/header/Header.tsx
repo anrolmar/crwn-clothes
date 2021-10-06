@@ -4,7 +4,7 @@ import CartDropdown from '../cart/cart-dropdown/CartDropdown';
 import CartIcon from '../cart/cart-icon/CartIcon';
 import { IAuthUser } from '../../shared/models';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
-import { RootState } from '../../redux';
+import { RootState } from '../../redux/root.reducers';
 import { auth } from '../../firebase/firebase';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';

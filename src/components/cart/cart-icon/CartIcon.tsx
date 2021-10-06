@@ -2,7 +2,7 @@ import { CartIconContainer, ItemCountContainer, ShoppingIconContainer } from './
 
 import { CartAction } from '../../../redux/cart/cart.actions';
 import { Dispatch } from 'redux';
-import { RootState } from '../../../redux';
+import { RootState } from '../../../redux/root.reducers';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCartItemsCount } from '../../../redux/cart/cart.selectors';

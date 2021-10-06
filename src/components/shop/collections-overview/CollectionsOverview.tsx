@@ -1,10 +1,10 @@
 import { CollectionOverviewContainer } from './collections-overview.styles';
 import CollectionPreview from '../collection-preview/CollectionPreview';
 import { ICollectionItem } from '../../../shared/models';
-import { RootState } from '../../../redux';
+import { RootState } from '../../../redux/root.reducers';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { selectCollectionsForPreview } from '../../../redux/collection/collection.selectors';
+import { selectCollectionsForPreview } from '../../../redux/shop/shop.selectors';
 
 interface CollectionsOverviewProps {
   collectionItems?: ICollectionItem[];
