@@ -6,6 +6,7 @@ import { Dispatch } from 'redux';
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchCollectionsStart } from '../../redux/shop/shop.action-creators';
+import { useEffect } from 'react';
 
 interface ShopPageOwnProps {
   fetchCollectionsStart: () => void;
@@ -13,23 +14,18 @@ interface ShopPageOwnProps {
 
 type ShopPageProps = ShopPageOwnProps & RouteComponentProps;
 
-class ShopPage extends React.Component<ShopPageProps> {
-  componentDidMount() {
-    const { fetchCollectionsStart } = this.props;
+const ShopPage: React.FC<ShopPageProps> = ({ match, fetchCollectionsStart }) => {
+  useEffect(() => {
     fetchCollectionsStart();
-  }
+  }, [fetchCollectionsStart]);
 
-  render() {
-    const { match } = this.props;
-
-    return (
-      <div className="shop-page">
-        <Route exact path={`${match.path}`} component={CollectionOverviewContainer} />
-        <Route path={`${match.path}/:collectionId`} component={CollectionPageContainer} />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="shop-page">
+      <Route exact path={`${match.path}`} component={CollectionOverviewContainer} />
+      <Route path={`${match.path}/:collectionId`} component={CollectionPageContainer} />
+    </div>
+  );
+};
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): any => ({
   fetchCollectionsStart: () => dispatch(fetchCollectionsStart()),

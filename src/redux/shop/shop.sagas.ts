@@ -7,8 +7,6 @@ import { ShopActionTypes } from './shop.action-types';
 import firebase from 'firebase/compat/app';
 
 function* fetchCollectionsAsync() {
-  yield console.log('I am fired');
-
   try {
     const collectionRef = fireStore.collection('collections');
     const snapshot: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData> = yield collectionRef.get();
