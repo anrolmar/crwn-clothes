@@ -4,29 +4,25 @@ import {
   CartItemsContainer,
   EmptyMessageContainer,
 } from './cart-dropdown.styles';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { CartAction } from '../../../redux/cart/cart.actions';
 import CartItem from '../cart-item/CartItem';
 import { Dispatch } from 'redux';
-import { ICartItem } from '../../../shared/models';
-import { RootState } from '../../../redux/root.reducers';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import { selectCartItems } from '../../../redux/cart/cart.selectors';
 import { toggleCartHidden } from '../../../redux/cart/cart.action-creators';
+import { useHistory } from 'react-router';
 
-interface CartDropdownProps {
-  items: ICartItem[];
-  dispatch: Dispatch<CartAction>;
-}
+const CartDropdown: React.FC = () => {
+  const cartItems = useSelector(selectCartItems);
+  const dispatch = useDispatch<Dispatch<CartAction>>();
+  const history = useHistory();
 
-const CartDropdown: React.FC<CartDropdownProps & RouteComponentProps> = ({ items, history, dispatch }) => {
   return (
     <CartDropdownContainer>
       <CartItemsContainer>
-        {items.length ? (
-          items.map((item) => <CartItem key={item.id} item={item} />)
+        {cartItems.length ? (
+          cartItems.map((cartItem) => <CartItem key={cartItem.id} item={cartItem} />)
         ) : (
           <EmptyMessageContainer className="empty-message">Your cart is empty</EmptyMessageContainer>
         )}
@@ -43,11 +39,4 @@ const CartDropdown: React.FC<CartDropdownProps & RouteComponentProps> = ({ items
   );
 };
 
-interface CartDropdownSelectorProps {
-  items: ICartItem[];
-}
-const mapStateToProps = createStructuredSelector<RootState, CartDropdownSelectorProps>({
-  items: selectCartItems,
-});
-
-export default withRouter(connect(mapStateToProps)(CartDropdown));
+export default CartDropdown;

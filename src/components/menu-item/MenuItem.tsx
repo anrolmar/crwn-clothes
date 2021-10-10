@@ -5,7 +5,7 @@ import {
   ContentTitle,
   MenuItemContainer,
 } from './menu-item.styles';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 
 interface MenuItemProps {
   imageUrl: string;
@@ -14,9 +14,12 @@ interface MenuItemProps {
   title: string;
 }
 
-export type MenuProps = MenuItemProps & RouteComponentProps;
+export type MenuProps = MenuItemProps;
 
-const MenuItem: React.FC<MenuProps> = ({ title, imageUrl, size, linkUrl, history, match }) => {
+const MenuItem: React.FC<MenuProps> = ({ title, imageUrl, size, linkUrl }) => {
+  const history = useHistory();
+  const match = useRouteMatch();
+
   return (
     <MenuItemContainer size={size} onClick={() => history.push(`${match.url}${linkUrl}`)}>
       <BackgroundImageContainer className="background-image" imageUrl={imageUrl} />
@@ -28,4 +31,4 @@ const MenuItem: React.FC<MenuProps> = ({ title, imageUrl, size, linkUrl, history
   );
 };
 
-export default withRouter(MenuItem);
+export default MenuItem;

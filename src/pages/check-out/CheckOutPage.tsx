@@ -9,18 +9,14 @@ import {
 import { selectCartItems, selectCartTotal } from '../../redux/cart/cart.selectors';
 
 import CheckoutItem from '../../components/cart/checkout-item/CheckoutItem';
-import { ICartItem } from '../../shared/models';
-import { RootState } from '../../redux/root.reducers';
 import StripeCheckoutButton from '../../components/cart/stripe-button/StripeButton';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
-interface CheckOutProps {
-  cartItems: ICartItem[];
-  total: number;
-}
+const CheckOutPage: React.FC = () => {
+  const cartItems = useSelector(useMemo(() => selectCartItems, []));
+  const total = useSelector(useMemo(() => selectCartTotal, []));
 
-const CheckOutPage: React.FC<CheckOutProps> = ({ cartItems, total }) => {
   return (
     <CheckoutContainer>
       <HeaderContainer>
@@ -44,7 +40,7 @@ const CheckOutPage: React.FC<CheckOutProps> = ({ cartItems, total }) => {
         <CheckoutItem key={cartItem.id} item={cartItem} />
       ))}
       <TotalContainer>
-        <span>TOTAL: ${total}</span>
+        <span>{`TOTAL: ${total}`}</span>
       </TotalContainer>
       <WarningContainer>
         * Please use the following test credit card for payments *
@@ -58,14 +54,4 @@ const CheckOutPage: React.FC<CheckOutProps> = ({ cartItems, total }) => {
   );
 };
 
-interface CheckOutSelectorProps {
-  cartItems: ICartItem[];
-  total: number;
-}
-
-const mapStateToProps = createStructuredSelector<RootState, CheckOutSelectorProps>({
-  cartItems: selectCartItems,
-  total: selectCartTotal,
-});
-
-export default connect(mapStateToProps)(CheckOutPage);
+export default CheckOutPage;

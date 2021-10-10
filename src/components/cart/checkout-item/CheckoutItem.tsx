@@ -10,17 +10,15 @@ import { addItem, clearItemFromCart, removeItem } from '../../../redux/cart/cart
 import { CartAction } from '../../../redux/cart/cart.actions';
 import { Dispatch } from 'redux';
 import { ICartItem } from '../../../shared/models';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 interface CheckoutItemProps {
   item: ICartItem;
-  addItem: (item: ICartItem) => void;
-  clearItem: (item: ICartItem) => void;
-  removeItem: (item: ICartItem) => void;
 }
 
-const CheckoutItem: React.FC<CheckoutItemProps> = ({ item, addItem, clearItem, removeItem }) => {
+const CheckoutItem: React.FC<CheckoutItemProps> = ({ item }) => {
   const { imageUrl, name, price, quantity } = item;
+  const dispatch = useDispatch<Dispatch<CartAction>>();
 
   return (
     <CheckoutContainer>
@@ -29,24 +27,18 @@ const CheckoutItem: React.FC<CheckoutItemProps> = ({ item, addItem, clearItem, r
       </ImageContainer>
       <TextContainer>{name}</TextContainer>
       <QuantityContainer>
-        <div className="arrow" onClick={() => removeItem(item)}>
+        <div className="arrow" onClick={() => dispatch(removeItem(item))}>
           &#10094;
         </div>
         <span className="value">{quantity}</span>
-        <div className="arrow" onClick={() => addItem(item)}>
+        <div className="arrow" onClick={() => dispatch(addItem(item))}>
           &#10095;
         </div>
       </QuantityContainer>
       <TextContainer>${price}</TextContainer>
-      <RemoveButtonContainer onClick={() => clearItem(item)}>&#10005;</RemoveButtonContainer>
+      <RemoveButtonContainer onClick={() => dispatch(clearItemFromCart(item))}>&#10005;</RemoveButtonContainer>
     </CheckoutContainer>
   );
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<CartAction>) => ({
-  addItem: (item: ICartItem) => dispatch(addItem(item)),
-  clearItem: (item: ICartItem) => dispatch(clearItemFromCart(item)),
-  removeItem: (item: ICartItem) => dispatch(removeItem(item)),
-});
-
-export default connect(null, mapDispatchToProps)(CheckoutItem);
+export default CheckoutItem;

@@ -3,17 +3,13 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { SignUpContainer, SignUpTitle } from './sign-up.styles';
 
 import { Dispatch } from 'redux';
-import { IUserCredentials } from '../../../shared/models/AuthUser';
 import { UserAction } from '../../../redux/users/user.actions';
-import { connect } from 'react-redux';
 import { signUpStart } from '../../../redux/users/user.action-creators';
+import { useDispatch } from 'react-redux';
 
-interface SignUpProps {
-  signUpStart: (userCredentials: IUserCredentials) => void;
-}
-
-const SignUp: React.FC<SignUpProps> = ({ signUpStart }) => {
+const SignUp: React.FC = () => {
   const [signUpDetails, setSignUpDetails] = useState({ confirmPassword: '', displayName: '', email: '', password: '' });
+  const dispatch = useDispatch<Dispatch<UserAction>>();
 
   const { confirmPassword, displayName, email, password } = signUpDetails;
 
@@ -24,7 +20,7 @@ const SignUp: React.FC<SignUpProps> = ({ signUpStart }) => {
       alert('Password do not match');
       return;
     }
-    signUpStart({ displayName, email, password });
+    dispatch(signUpStart({ displayName, email, password }));
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -68,8 +64,4 @@ const SignUp: React.FC<SignUpProps> = ({ signUpStart }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<UserAction>) => ({
-  signUpStart: (userCredentials: IUserCredentials) => dispatch(signUpStart(userCredentials)),
-});
-
-export default connect(null, mapDispatchToProps)(SignUp);
+export default SignUp;

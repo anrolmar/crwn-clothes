@@ -5,16 +5,13 @@ import { emailSignInStart, googleSignInStart } from '../../../redux/users/user.a
 
 import { Dispatch } from 'redux';
 import { UserAction } from '../../../redux/users/user.actions';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-interface SignInOwnProps {
-  emailSignInStart: (email: string, password: string) => void;
-  googleSignInStart: () => void;
-}
-
-const SignIn: React.FC<SignInOwnProps> = ({ emailSignInStart, googleSignInStart }) => {
+const SignIn: React.FC = () => {
   const [userCredentials, setCredentials] = useState({ email: '', password: '' });
   const { email, password } = userCredentials;
+
+  const dispatch = useDispatch<Dispatch<UserAction>>();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -23,7 +20,11 @@ const SignIn: React.FC<SignInOwnProps> = ({ emailSignInStart, googleSignInStart 
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    emailSignInStart(email, password);
+    dispatch(emailSignInStart(email, password));
+  };
+
+  const googleSignInHandleClick = () => {
+    dispatch(googleSignInStart());
   };
 
   return (
@@ -43,7 +44,7 @@ const SignIn: React.FC<SignInOwnProps> = ({ emailSignInStart, googleSignInStart 
         />
         <ButtonsContainer>
           <Button type="submit">Sign in</Button>
-          <Button type="button" isGoogleSignIn onClick={googleSignInStart}>
+          <Button type="button" isGoogleSignIn onClick={googleSignInHandleClick}>
             Sign in with Google
           </Button>
         </ButtonsContainer>
@@ -52,9 +53,4 @@ const SignIn: React.FC<SignInOwnProps> = ({ emailSignInStart, googleSignInStart 
   );
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<UserAction>) => ({
-  emailSignInStart: (email: string, password: string) => dispatch(emailSignInStart(email, password)),
-  googleSignInStart: () => dispatch(googleSignInStart()),
-});
-
-export default connect(null, mapDispatchToProps)(SignIn);
+export default SignIn;

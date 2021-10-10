@@ -93,14 +93,14 @@ export const signOutFailure = (error: string): SignOutFailureAction => {
   };
 };
 
-export const signOutStart = (): SignOutStartAction => {
-  return {
-    type: UserActionType.SIGN_OUT_START,
-  };
-};
-
 export const signOutSuccess = (): SignOutSuccessAction => {
   return {
     type: UserActionType.SIGN_OUT_SUCCESS,
+  };
+};
+
+export const signOutStart = (): SignOutStartAction => {
+  return {
+    type: UserActionType.SIGN_OUT_START,
   };
 };

@@ -1,25 +1,25 @@
 import { HeaderContainer, LogoContainer, OptionLink, OptionsContainer } from './header.styles';
+import { useDispatch, useSelector } from 'react-redux';
 
 import CartDropdown from '../cart/cart-dropdown/CartDropdown';
 import CartIcon from '../cart/cart-icon/CartIcon';
 import { Dispatch } from 'redux';
-import { IAuthUser } from '../../shared/models';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
-import { RootState } from '../../redux/root.reducers';
 import { UserAction } from '../../redux/users/user.actions';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
 import { selectCurrentUser } from '../../redux/users/user.selectors';
 import { signOutStart } from '../../redux/users/user.action-creators';
+import { useMemo } from 'react';
 
-interface HeaderProps {
-  currentUser: IAuthUser | null;
-  hidden: boolean;
-  signOutStart: () => void;
-}
+const Header: React.FC = () => {
+  const currentUser = useSelector(useMemo(() => selectCurrentUser, []));
+  const hidden = useSelector(useMemo(() => selectCartHidden, []));
+  const dispatch = useDispatch<Dispatch<UserAction>>();
 
-const Header: React.FC<HeaderProps> = ({ currentUser, hidden, signOutStart }) => {
+  const googleSignOutHandleClick = () => {
+    dispatch(signOutStart());
+  };
+
   return (
     <HeaderContainer>
       <LogoContainer to="/">
@@ -33,7 +33,7 @@ const Header: React.FC<HeaderProps> = ({ currentUser, hidden, signOutStart }) =>
           CONTACT
         </OptionLink>
         {currentUser ? (
-          <OptionLink as="div" className="option" onClick={signOutStart}>
+          <OptionLink as="div" className="option" onClick={googleSignOutHandleClick}>
             SIGN OUT
           </OptionLink>
         ) : (
@@ -48,18 +48,4 @@ const Header: React.FC<HeaderProps> = ({ currentUser, hidden, signOutStart }) =>
   );
 };
 
-interface HeaderSelectorProps {
-  currentUser: IAuthUser | null;
-  hidden: boolean;
-}
-
-const mapStateToProps = createStructuredSelector<RootState, HeaderSelectorProps>({
-  currentUser: selectCurrentUser,
-  hidden: selectCartHidden,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<UserAction>) => ({
-  signOutStart: () => dispatch(signOutStart()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default Header;
