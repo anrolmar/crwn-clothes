@@ -6,6 +6,10 @@ export interface AddCartItemAction {
   payload: ICartItem;
 }
 
+export interface ClearCartAction {
+  type: CartActionType.CLEAR_CART;
+}
+
 export interface ClearItemFromCartAction {
   type: CartActionType.CLEAR_ITEM_FROM_CART;
   payload: ICartItem;
@@ -20,4 +24,9 @@ export interface ToggleCartHiddenAction {
   type: CartActionType.TOGGLE_CART_HIDDEN;
 }
 
-export type CartAction = AddCartItemAction | ClearItemFromCartAction | RemoveItemCartAction | ToggleCartHiddenAction;
+export type CartAction =
+  | AddCartItemAction
+  | ClearCartAction
+  | ClearItemFromCartAction
+  | RemoveItemCartAction
+  | ToggleCartHiddenAction;

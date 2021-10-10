@@ -1,5 +1,3 @@
-import './stripe-button.scss';
-
 import StripeCheckout, { Token } from 'react-stripe-checkout';
 
 interface StripeCheckoutButtonProps {

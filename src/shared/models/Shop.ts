@@ -1,5 +1,5 @@
 export interface ICollectionItem {
-  id: number;
+  id: string;
   title: string;
   routeName: string;
   items: ICartItem[];

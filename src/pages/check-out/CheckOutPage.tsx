@@ -1,63 +1,57 @@
-import './checkout.scss';
-
+import {
+  CheckoutContainer,
+  HeaderBlockContainer,
+  HeaderContainer,
+  StripeButtonContainer,
+  TotalContainer,
+  WarningContainer,
+} from './checkout.styles';
 import { selectCartItems, selectCartTotal } from '../../redux/cart/cart.selectors';
 
 import CheckoutItem from '../../components/cart/checkout-item/CheckoutItem';
-import { ICartItem } from '../../shared/models';
-import { RootState } from '../../redux';
 import StripeCheckoutButton from '../../components/cart/stripe-button/StripeButton';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
-interface CheckOutProps {
-  cartItems: ICartItem[];
-  total: number;
-}
+const CheckOutPage: React.FC = () => {
+  const cartItems = useSelector(useMemo(() => selectCartItems, []));
+  const total = useSelector(useMemo(() => selectCartTotal, []));
 
-const CheckOutPage: React.FC<CheckOutProps> = ({ cartItems, total }) => {
   return (
-    <div className="checkout-page">
-      <div className="checkout-header">
-        <div className="header-block">
+    <CheckoutContainer>
+      <HeaderContainer>
+        <HeaderBlockContainer>
           <span>Product</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlockContainer>
+        <HeaderBlockContainer>
           <span>Description</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlockContainer>
+        <HeaderBlockContainer>
           <span>Quantity</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlockContainer>
+        <HeaderBlockContainer>
           <span>Price</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlockContainer>
+        <HeaderBlockContainer>
           <span>Remove</span>
-        </div>
-      </div>
+        </HeaderBlockContainer>
+      </HeaderContainer>
       {cartItems.map((cartItem) => (
         <CheckoutItem key={cartItem.id} item={cartItem} />
       ))}
-      <div className="total">
-        <span>TOTAL: ${total}</span>
-      </div>
-      <div className="test-warning">
+      <TotalContainer>
+        <span>{`TOTAL: ${total}`}</span>
+      </TotalContainer>
+      <WarningContainer>
         * Please use the following test credit card for payments *
         <br />
         4242 4242 4242 4242 - Exp: 01/22 - CVV: 123
-      </div>
-      <StripeCheckoutButton price={total} />
-    </div>
+      </WarningContainer>
+      <StripeButtonContainer>
+        <StripeCheckoutButton price={total} />
+      </StripeButtonContainer>
+    </CheckoutContainer>
   );
 };
 
-interface CheckOutSelectorProps {
-  cartItems: ICartItem[];
-  total: number;
-}
-
-const mapStateToProps = createStructuredSelector<RootState, CheckOutSelectorProps>({
-  cartItems: selectCartItems,
-  total: selectCartTotal,
-});
-
-export default connect(mapStateToProps)(CheckOutPage);
+export default CheckOutPage;

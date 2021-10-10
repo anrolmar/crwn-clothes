@@ -1,23 +1,18 @@
-import './collection-page.scss';
+import { CollectionItemsContainer, CollectionPageContainer, CollectionTitle } from './collection-page.styles';
 
 import CollectionItem from '../../components/shop/collection-item/CollectionItem';
-import { ICollectionItem } from '../../shared/models';
-import { RootState } from '../../redux/index';
-import { RouteComponentProps } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { selectCollection } from '../../redux/collection/collection.selectors';
+import { selectCollection } from '../../redux/shop/shop.selectors';
+import { useMemo } from 'react';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-interface CollectionOwnProps {
-  collection: ICollectionItem;
-}
-
-interface CollectionMatchParams {
+interface RouteParams {
   collectionId: string;
 }
 
-type CollectionPageProps = CollectionOwnProps & RouteComponentProps<CollectionMatchParams>;
-
-const CollectionPage: React.FC<CollectionPageProps> = ({ collection }) => {
+const CollectionPage: React.FC = () => {
+  const { collectionId } = useParams<RouteParams>();
+  const collection = useSelector(useMemo(() => selectCollection(collectionId), [collectionId]));
   const { title, items } = collection;
 
   const renderItems = () => {
@@ -25,15 +20,11 @@ const CollectionPage: React.FC<CollectionPageProps> = ({ collection }) => {
   };
 
   return (
-    <div className="collection-page">
-      <h2 className="title">{title}</h2>
-      <div className="items">{renderItems()}</div>
-    </div>
+    <CollectionPageContainer>
+      <CollectionTitle>{title}</CollectionTitle>
+      <CollectionItemsContainer>{renderItems()}</CollectionItemsContainer>
+    </CollectionPageContainer>
   );
 };
 
-const mapStateToProps = (state: RootState, ownProps: CollectionPageProps) => ({
-  collection: selectCollection(ownProps.match.params.collectionId)(state),
-});
-
-export default connect(mapStateToProps)(CollectionPage);
+export default CollectionPage;

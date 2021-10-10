@@ -1,4 +1,4 @@
-import './cart-item.scss';
+import { CartItemContainer, CartItemDetailsContainer, CartItemImageContainer } from './cart-item.styles';
 
 import { ICartItem } from '../../../shared/models';
 
@@ -8,15 +8,15 @@ interface CartItemProps {
 
 const CartItem: React.FC<CartItemProps> = ({ item: { imageUrl, price, name, quantity } }) => {
   return (
-    <div className="cart-item">
-      <img src={imageUrl} alt="item" />
-      <div className="item-details">
-        <span className="name">{name}</span>
-        <span className="price">
+    <CartItemContainer>
+      <CartItemImageContainer src={imageUrl} alt="item" />
+      <CartItemDetailsContainer>
+        <span>{name}</span>
+        <span>
           {quantity} x ${price}
         </span>
-      </div>
-    </div>
+      </CartItemDetailsContainer>
+    </CartItemContainer>
   );
 };
 

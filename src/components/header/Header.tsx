@@ -1,59 +1,51 @@
-import './header.scss';
+import { HeaderContainer, LogoContainer, OptionLink, OptionsContainer } from './header.styles';
+import { useDispatch, useSelector } from 'react-redux';
 
 import CartDropdown from '../cart/cart-dropdown/CartDropdown';
 import CartIcon from '../cart/cart-icon/CartIcon';
-import { IAuthUser } from '../../shared/models';
-import { Link } from 'react-router-dom';
+import { Dispatch } from 'redux';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
-import { RootState } from '../../redux';
-import { auth } from '../../firebase/firebase';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { UserAction } from '../../redux/users/user.actions';
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
 import { selectCurrentUser } from '../../redux/users/user.selectors';
+import { signOutStart } from '../../redux/users/user.action-creators';
+import { useMemo } from 'react';
 
-interface HeaderProps {
-  currentUser: IAuthUser | null;
-  hidden: boolean;
-}
+const Header: React.FC = () => {
+  const currentUser = useSelector(useMemo(() => selectCurrentUser, []));
+  const hidden = useSelector(useMemo(() => selectCartHidden, []));
+  const dispatch = useDispatch<Dispatch<UserAction>>();
 
-const Header: React.FC<HeaderProps> = ({ currentUser, hidden }) => {
+  const googleSignOutHandleClick = () => {
+    dispatch(signOutStart());
+  };
+
   return (
-    <div className="header">
-      <Link className="logo-container" to="/">
+    <HeaderContainer>
+      <LogoContainer to="/">
         <Logo className="logo" />
-      </Link>
-      <div className="options">
-        <Link to="/shop" className="option">
+      </LogoContainer>
+      <OptionsContainer>
+        <OptionLink to="/shop" className="option">
           SHOP
-        </Link>
-        <Link to="/shop" className="option">
+        </OptionLink>
+        <OptionLink to="/shop" className="option">
           CONTACT
-        </Link>
+        </OptionLink>
         {currentUser ? (
-          <div className="option" onClick={() => auth.signOut()}>
+          <OptionLink as="div" className="option" onClick={googleSignOutHandleClick}>
             SIGN OUT
-          </div>
+          </OptionLink>
         ) : (
-          <Link className="option" to="/sign-in">
+          <OptionLink className="option" to="/sign-in">
             SIGN IN
-          </Link>
+          </OptionLink>
         )}
         <CartIcon />
-      </div>
+      </OptionsContainer>
       {hidden ? null : <CartDropdown />}
-    </div>
+    </HeaderContainer>
   );
 };
 
-interface HeaderSelectorProps {
-  currentUser: IAuthUser | null;
-  hidden: boolean;
-}
-
-const mapStateToProps = createStructuredSelector<RootState, HeaderSelectorProps>({
-  currentUser: selectCurrentUser,
-  hidden: selectCartHidden,
-});
-
-export default connect(mapStateToProps)(Header);
+export default Header;

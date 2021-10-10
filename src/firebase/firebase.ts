@@ -1,7 +1,7 @@
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 
-import { IAuthUser } from '../shared/models';
+import { ICollection } from '../shared/models/Shop';
 import firebase from 'firebase/compat/app';
 
 const firebaseConfig = {
@@ -15,35 +15,21 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({
   prompt: 'select_account',
 });
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
-const authUserConverter = {
-  toFirestore(authUser: IAuthUser): firebase.firestore.DocumentData {
-    return authUser;
-  },
-  fromFirestore(
-    snapshot: firebase.firestore.QueryDocumentSnapshot,
-    options: firebase.firestore.SnapshotOptions,
-  ): IAuthUser {
-    return snapshot.data(options) as IAuthUser;
-  },
-};
 export const createUserProfileDocument = async (userAuth: firebase.User, additionalData: any) => {
-  if (!userAuth) return;
-
   const userRef = fireStore.doc(`users/${userAuth.uid}`);
-  const snapShot = await userRef.withConverter(authUserConverter).get();
+  const snapShot = await userRef.get();
 
   if (!snapShot.exists) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
 
     try {
-      await userRef.withConverter(authUserConverter).set({
+      await userRef.set({
         displayName,
         email,
         createdAt,
@@ -54,7 +40,48 @@ export const createUserProfileDocument = async (userAuth: firebase.User, additio
     }
   }
 
-  return snapShot;
+  return userRef;
+};
+
+export const addCollectionAndDocuments = async <T>(collectionKey: string, objectsToAdd: T) => {
+  const collectionRef = fireStore.collection(collectionKey);
+
+  if (Array.isArray(objectsToAdd)) {
+    const batch = fireStore.batch();
+    objectsToAdd.forEach((obj: T) => {
+      const newDocRef = collectionRef.doc();
+      batch.set(newDocRef, obj);
+    });
+    return await batch.commit();
+  }
+};
+
+export const convertCollectionsSnapshotToMap = (
+  collections: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>,
+) => {
+  const transformedCollection = collections.docs.map((doc) => {
+    const { title, items } = doc.data();
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items,
+    };
+  });
+
+  return transformedCollection.reduce((accumulator: ICollection, collection) => {
+    accumulator[collection.title.toLowerCase()] = collection;
+    return accumulator;
+  }, {});
+};
+
+export const getCurrentUser = () => {
+  return new Promise<firebase.User | null>((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+      unsubscribe();
+      resolve(userAuth);
+    }, reject);
+  });
 };
 
 export const auth = firebase.auth();

@@ -1,5 +1,5 @@
+import { RootState } from '../root.reducers';
 import { createSelector } from 'reselect';
-import { RootState } from '../index';
 
 const selectCart = (state: RootState) => state.cart;
 
