@@ -1,21 +1,16 @@
 import './checkout-item.scss';
 
-import { addItem, clearItemFromCart, removeItem } from '../../../redux/cart/cart.action-creators';
-
-import { CartAction } from '../../../redux/cart/cart.actions';
-import { Dispatch } from 'redux';
+import { CartContext } from '../../../providers/cart/cart.provider';
 import { ICartItem } from '../../../shared/models';
-import { connect } from 'react-redux';
+import { useContext } from 'react';
 
 interface CheckoutItemProps {
   item: ICartItem;
-  addItem: (item: ICartItem) => void;
-  clearItem: (item: ICartItem) => void;
-  removeItem: (item: ICartItem) => void;
 }
 
-const CheckoutItem: React.FC<CheckoutItemProps> = ({ item, addItem, clearItem, removeItem }) => {
+const CheckoutItem: React.FC<CheckoutItemProps> = ({ item }) => {
   const { imageUrl, name, price, quantity } = item;
+  const { addItem, removeItem, clearItemFromCart } = useContext(CartContext);
 
   return (
     <div className="checkout-item">
@@ -33,17 +28,11 @@ const CheckoutItem: React.FC<CheckoutItemProps> = ({ item, addItem, clearItem, r
         </div>
       </span>
       <span className="price">{price}</span>
-      <div className="remove-button" onClick={() => clearItem(item)}>
+      <div className="remove-button" onClick={() => clearItemFromCart(item)}>
         &#10005;
       </div>
     </div>
   );
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<CartAction>) => ({
-  addItem: (item: ICartItem) => dispatch(addItem(item)),
-  clearItem: (item: ICartItem) => dispatch(clearItemFromCart(item)),
-  removeItem: (item: ICartItem) => dispatch(removeItem(item)),
-});
-
-export default connect(null, mapDispatchToProps)(CheckoutItem);
+export default CheckoutItem;

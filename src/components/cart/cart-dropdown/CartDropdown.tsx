@@ -3,27 +3,18 @@ import './cart-dropdown.scss';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import { Button } from '../../../shared/components/forms';
-import { CartAction } from '../../../redux/cart/cart.actions';
+import { CartContext } from '../../../providers/cart/cart.provider';
 import CartItem from '../cart-item/CartItem';
-import { Dispatch } from 'redux';
-import { ICartItem } from '../../../shared/models';
-import { RootState } from '../../../redux';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { selectCartItems } from '../../../redux/cart/cart.selectors';
-import { toggleCartHidden } from '../../../redux/cart/cart.action-creators';
+import { useContext } from 'react';
 
-interface CartDropdownProps {
-  items: ICartItem[];
-  dispatch: Dispatch<CartAction>;
-}
+const CartDropdown: React.FC<RouteComponentProps> = ({ history }) => {
+  const { cartItems, toggleHidden } = useContext(CartContext);
 
-const CartDropdown: React.FC<CartDropdownProps & RouteComponentProps> = ({ items, history, dispatch }) => {
   return (
     <div className="cart-dropdown">
       <div className="cart-items">
-        {items.length ? (
-          items.map((item) => <CartItem key={item.id} item={item} />)
+        {cartItems.length ? (
+          cartItems.map((item) => <CartItem key={item.id} item={item} />)
         ) : (
           <span className="empty-message">Your cart is empty</span>
         )}
@@ -31,7 +22,7 @@ const CartDropdown: React.FC<CartDropdownProps & RouteComponentProps> = ({ items
       <Button
         onClick={() => {
           history.push('/checkout');
-          dispatch(toggleCartHidden());
+          toggleHidden();
         }}
       >
         Go to Checkout
@@ -40,11 +31,4 @@ const CartDropdown: React.FC<CartDropdownProps & RouteComponentProps> = ({ items
   );
 };
 
-interface CartDropdownSelectorProps {
-  items: ICartItem[];
-}
-const mapStateToProps = createStructuredSelector<RootState, CartDropdownSelectorProps>({
-  items: selectCartItems,
-});
-
-export default withRouter(connect(mapStateToProps)(CartDropdown));
+export default withRouter(CartDropdown);

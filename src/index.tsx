@@ -1,17 +1,13 @@
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import { store, persistor } from './redux/store';
-import { PersistGate } from 'redux-persist/integration/react';
+import { BrowserRouter } from 'react-router-dom';
+import CartProvider from './providers/cart/cart.provider';
+import ReactDOM from 'react-dom';
 
 ReactDOM.render(
-  <Provider store={store}>
+  <CartProvider>
     <BrowserRouter>
-      <PersistGate persistor={persistor}>
-        <App />
-      </PersistGate>
+      <App />
     </BrowserRouter>
-  </Provider>,
+  </CartProvider>,
   document.querySelector('#root'),
 );
