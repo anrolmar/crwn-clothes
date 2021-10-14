@@ -3,6 +3,7 @@
 /.pnp
 .pnp.js
 .next
+/client/node_modules
 
 # testing
 /coverage
@@ -40,3 +41,9 @@ yarn-error.log*
 /.changelog
 .npm/
 dist
+
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env

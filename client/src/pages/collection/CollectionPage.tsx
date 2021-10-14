@@ -1,18 +1,23 @@
 import { CollectionItemsContainer, CollectionPageContainer, CollectionTitle } from './collection-page.styles';
 
 import CollectionItem from '../../components/shop/collection-item/CollectionItem';
+import { ICollectionItem } from '../../shared/models/Shop';
+import { RootState } from '../../redux/root.reducers';
+import { RouteComponentProps } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { selectCollection } from '../../redux/shop/shop.selectors';
-import { useMemo } from 'react';
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+
+interface CollectionPageOwnProps {
+  collection: ICollectionItem;
+}
 
 interface RouteParams {
   collectionId: string;
 }
 
-const CollectionPage: React.FC = () => {
-  const { collectionId } = useParams<RouteParams>();
-  const collection = useSelector(useMemo(() => selectCollection(collectionId), [collectionId]));
+type CollectionPageProps = CollectionPageOwnProps & RouteComponentProps<RouteParams>;
+
+const CollectionPage: React.FC<CollectionPageProps> = ({ collection }) => {
   const { title, items } = collection;
 
   const renderItems = () => {
@@ -27,4 +32,8 @@ const CollectionPage: React.FC = () => {
   );
 };
 
-export default CollectionPage;
+const mapStateToProps = (state: RootState, ownProps: CollectionPageProps) => ({
+  collection: selectCollection(ownProps.match.params.collectionId)(state),
+});
+
+export default connect(mapStateToProps)(CollectionPage);
