@@ -7,6 +7,12 @@ import CurrentUserContext from '../../contexts/current-user/current-user.context
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { auth } from '../../firebase/firebase';
+<<<<<<< HEAD
+=======
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectCartHidden } from '../../redux/cart/cart.selectors';
+>>>>>>> 13fbd2650ae46d57662ea5dc4d171a4630fbe704
 import { useContext } from 'react';
 
 const Header: React.FC = () => {
@@ -41,4 +47,16 @@ const Header: React.FC = () => {
   );
 };
 
+<<<<<<< HEAD
 export default Header;
+=======
+interface HeaderSelectorProps {
+  hidden: boolean;
+}
+
+const mapStateToProps = createStructuredSelector<RootState, HeaderSelectorProps>({
+  hidden: selectCartHidden,
+});
+
+export default connect(mapStateToProps)(Header);
+>>>>>>> 13fbd2650ae46d57662ea5dc4d171a4630fbe704
