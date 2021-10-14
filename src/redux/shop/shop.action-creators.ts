@@ -1,5 +1,5 @@
-import { CollectionActionTypes } from './collection.action-types';
-import { FetchCollectionItemsAction } from './collection.actions';
+import { CollectionActionTypes } from './shop.action-types';
+import { FetchCollectionItemsAction } from './shop.actions';
 import SHOP_DATA from '../../constants/shop-data';
 
 export const fetchCollectionItems = (): FetchCollectionItemsAction => {

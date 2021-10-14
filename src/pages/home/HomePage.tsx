@@ -1,10 +1,10 @@
 import './home-page.scss';
 
-import { CollectionAction } from '../../redux/collection/collection.actions';
+import { CollectionAction } from '../../redux/shop/shop.actions';
 import Directory from '../../components/directory/Directory';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { fetchCollectionItems } from '../../redux/collection/collection.action-creators';
+import { fetchCollectionItems } from '../../redux/shop/shop.action-creators';
 import { useEffect } from 'react';
 
 interface HomePageOwnProps {

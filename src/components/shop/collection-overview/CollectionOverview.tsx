@@ -5,7 +5,7 @@ import { ICollectionItem } from '../../../shared/models';
 import { RootState } from '../../../redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { selectCollectionsForPreview } from '../../../redux/collection/collection.selectors';
+import { selectCollectionsForPreview } from '../../../redux/shop/shop.selectors';
 
 interface CollectionOverviewProps {
   collectionItems: ICollectionItem[];

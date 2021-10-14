@@ -1,4 +1,4 @@
-import { CollectionActionTypes } from './collection.action-types';
+import { CollectionActionTypes } from './shop.action-types';
 import { ICollection } from '../../shared/models/Shop';
 
 export interface FetchCollectionItemsAction {

@@ -1,23 +1,19 @@
 import './collection-page.scss';
 
 import CollectionItem from '../../components/shop/collection-item/CollectionItem';
-import { ICollectionItem } from '../../shared/models';
-import { RootState } from '../../redux/index';
+import CollectionsContext from '../../contexts/collections/collections.context';
 import { RouteComponentProps } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { selectCollection } from '../../redux/collection/collection.selectors';
-
-interface CollectionOwnProps {
-  collection: ICollectionItem;
-}
+import { useContext } from 'react';
 
 interface CollectionMatchParams {
   collectionId: string;
 }
 
-type CollectionPageProps = CollectionOwnProps & RouteComponentProps<CollectionMatchParams>;
+type CollectionPageProps = RouteComponentProps<CollectionMatchParams>;
 
-const CollectionPage: React.FC<CollectionPageProps> = ({ collection }) => {
+const CollectionPage: React.FC<CollectionPageProps> = ({ match }) => {
+  const collections = useContext(CollectionsContext);
+  const collection = collections[match.params.collectionId];
   const { title, items } = collection;
 
   const renderItems = () => {
@@ -32,8 +28,4 @@ const CollectionPage: React.FC<CollectionPageProps> = ({ collection }) => {
   );
 };
 
-const mapStateToProps = (state: RootState, ownProps: CollectionPageProps) => ({
-  collection: selectCollection(ownProps.match.params.collectionId)(state),
-});
-
-export default connect(mapStateToProps)(CollectionPage);
+export default CollectionPage;

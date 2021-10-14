@@ -1,5 +1,5 @@
-import { CollectionAction } from './collection.actions';
-import { CollectionActionTypes } from './collection.action-types';
+import { CollectionAction } from './shop.actions';
+import { CollectionActionTypes } from './shop.action-types';
 import { ICollection } from '../../shared/models';
 
 interface CollectionState {

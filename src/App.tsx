@@ -4,43 +4,38 @@ import { CheckOutPage, HomePage, LoginPage, ShopPage } from './pages';
 import { Redirect, Route, Switch } from 'react-router';
 import { auth, createUserProfileDocument } from './firebase/firebase';
 
-import { Dispatch } from 'redux';
+import CurrentUserContext from './contexts/current-user/current-user.context';
 import Header from './components/header/Header';
 import { IAuthUser } from './shared/models';
 import React from 'react';
-import { RootState } from './redux';
-import { UserAction } from './redux/users/user.actions';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { selectCurrentUser } from './redux/users/user.selectors';
-import { setCurrentUser } from './redux/users/user.action-creators';
-
-interface AppProps {
-  currentUser: IAuthUser | null;
-  setCurrentUser: (authUser: IAuthUser | null) => void;
-}
 
 interface AppState {
   currentUser: IAuthUser | null;
 }
 
-class App extends React.Component<AppProps, AppState> {
+class App extends React.Component<{}, AppState> {
+  state = {
+    currentUser: null,
+  };
+
   unsubscribeFromAuth = () => {};
 
   componentDidMount() {
-    const { setCurrentUser } = this.props;
-
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userSnapshot = await createUserProfileDocument(userAuth, null);
         if (userSnapshot) {
-          setCurrentUser({
-            uid: userSnapshot.id,
-            ...userSnapshot.data(),
+          this.setState({
+            currentUser: {
+              uid: userSnapshot.id,
+              ...userSnapshot.data(),
+            },
           });
         }
       } else {
-        setCurrentUser(null);
+        this.setState({
+          currentUser: userAuth,
+        });
       }
     });
   }
@@ -52,27 +47,18 @@ class App extends React.Component<AppProps, AppState> {
   render() {
     return (
       <div>
-        <Header />
+        <CurrentUserContext.Provider value={this.state.currentUser}>
+          <Header />
+        </CurrentUserContext.Provider>
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
           <Route exact path="/checkout" component={CheckOutPage} />
-          <Route exact path="/sign-in" render={() => (this.props.currentUser ? <Redirect to="/" /> : <LoginPage />)} />
+          <Route exact path="/sign-in" render={() => (this.state.currentUser ? <Redirect to="/" /> : <LoginPage />)} />
         </Switch>
       </div>
     );
   }
 }
 
-interface AppSelectorProps {
-  currentUser: IAuthUser | null;
-}
-const mapStateToProps = createStructuredSelector<RootState, AppSelectorProps>({
-  currentUser: selectCurrentUser,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<UserAction>) => ({
-  setCurrentUser: (user: IAuthUser | null) => dispatch(setCurrentUser(user)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

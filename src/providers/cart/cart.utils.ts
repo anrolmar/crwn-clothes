@@ -1,6 +1,6 @@
 import { ICartItem } from '../../shared/models';
 
-export const addItemToCart = (cartItems: ICartItem[], cartItemToAdd: ICartItem) => {
+export const addItemToCart = (cartItems: ICartItem[], cartItemToAdd: ICartItem): ICartItem[] => {
   const existingCartItem = cartItems.find((cartItem) => cartItem.id === cartItemToAdd.id);
 
   if (existingCartItem) {
@@ -22,4 +22,16 @@ export const removeItemFromCart = (cartItems: ICartItem[], cartItemToRemove: ICa
   return cartItems.map((cartItem) =>
     cartItem.id === cartItemToRemove.id ? { ...cartItem, quantity: cartItemToRemove.quantity! - 1 } : cartItem,
   );
+};
+
+export const filterItemFromCart = (cartItems: ICartItem[], item: ICartItem) => {
+  return cartItems.filter((cartItem) => cartItem.id !== item.id);
+};
+
+export const getCartItemsCount = (cartItems: ICartItem[]): number => {
+  return cartItems.reduce((accumulatedQuantity, item) => accumulatedQuantity + item.quantity!, 0);
+};
+
+export const getCartTotal = (cartItems: ICartItem[]): number => {
+  return cartItems.reduce((accumulatedQuantity, item) => accumulatedQuantity + item.quantity! * item.price, 0);
 };

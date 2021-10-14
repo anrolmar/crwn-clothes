@@ -1,5 +1,5 @@
 import cartReducer from './cart/cart.reducers';
-import collectionReducer from './collection/collection.reducers';
+import collectionReducer from './shop/shop.reducers';
 import { combineReducers } from 'redux';
 import directoryReducer from './directory/directory.reducers';
 import { persistReducer } from 'redux-persist';
